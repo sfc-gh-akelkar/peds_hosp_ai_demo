@@ -13,13 +13,35 @@ This project demonstrates comprehensive Snowflake Intelligence capabilities for 
 
 ## Quick Start
 
-### Single Script Setup
-Execute the complete healthcare demo setup with one script:
+### Modular Setup (Recommended)
+The demo uses a modular approach with 4 focused scripts:
 
+**Option A: Complete Automated Setup**
 ```sql
--- Run in Snowflake worksheet
-/sql_scripts/healthcare_demo_setup.sql
+-- Run the master setup script in Snowflake worksheet
+/sql_scripts/00_complete_healthcare_setup.sql
 ```
+
+**Option B: Step-by-Step Modular Setup**
+```sql
+-- Step 1: Data Infrastructure (Database, tables, sample data)
+/sql_scripts/01_healthcare_data_setup.sql
+
+-- Step 2: Document Intelligence (Cortex Search services)
+/sql_scripts/02_cortex_search_setup.sql
+
+-- Step 3: Natural Language Queries (Semantic views)
+/sql_scripts/03_semantic_views_setup.sql
+
+-- Step 4: AI Agent (Functions, procedures, agent)
+/sql_scripts/04_agent_setup.sql
+```
+
+**Benefits of Modular Approach:**
+- ✅ **Better Debugging**: Isolate issues to specific components
+- ✅ **Easier Maintenance**: Update individual capabilities independently  
+- ✅ **Flexible Demos**: Choose which components to include
+- ✅ **Learning Focused**: Understand each Snowflake Intelligence feature separately
 
 ### What the Setup Creates
 - `SF_INTELLIGENCE_DEMO` role with healthcare-specific permissions (reuses existing role)

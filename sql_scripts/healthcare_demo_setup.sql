@@ -1,4 +1,24 @@
 -- ========================================================================
+-- ⚠️  DEPRECATED: USE MODULAR SCRIPTS INSTEAD
+-- ========================================================================
+-- 
+-- This monolithic script has been replaced with 4 focused, modular scripts:
+--
+-- 📊 01_healthcare_data_setup.sql     - Database, tables, sample data
+-- 🔍 02_cortex_search_setup.sql       - Document search services  
+-- 🧠 03_semantic_views_setup.sql      - Natural language query views
+-- 🤖 04_agent_setup.sql               - AI agent and custom functions
+--
+-- 🎯 **RECOMMENDED**: Use the new modular approach for:
+--    ✅ Better maintainability and debugging
+--    ✅ Step-by-step setup and validation  
+--    ✅ Easier customization for different demo scenarios
+--    ✅ Focused learning of each Snowflake Intelligence capability
+--
+-- 🚀 **GET STARTED**: Run 00_complete_healthcare_setup.sql for full instructions
+--
+-- ========================================================================
+-- ORIGINAL MONOLITHIC SCRIPT (DEPRECATED - FOR REFERENCE ONLY)
 -- Snowflake AI Demo - Pediatric Hospital Setup Script
 -- Pediatric Hospital Demo - Healthcare Analytics
 -- This script creates healthcare-specific database, schema, tables, and loads synthetic medical data
