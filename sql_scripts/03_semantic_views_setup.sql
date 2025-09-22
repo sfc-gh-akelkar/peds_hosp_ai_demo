@@ -85,29 +85,29 @@ CREATE OR REPLACE SEMANTIC VIEW PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.OPERA
         QUALITYMETRICSTODEPARTMENTS as QUALITY_METRICS(DEPARTMENT_KEY) references DEPARTMENTS(DEPARTMENT_KEY)
     )
     facts (
-        OPERATIONS.METRIC_VALUE as operational_metric_value comment='Operational metric value',
+        OPERATIONS.METRIC_VALUE as metric_value comment='Operational metric value',
         OPERATIONS.TARGET_VALUE as target_value comment='Target value for operational metric',
         OPERATIONS.VARIANCE_PERCENTAGE as variance_percentage comment='Variance from target as percentage',
-        QUALITY_METRICS.NUMERATOR as quality_numerator comment='Quality metric numerator',
-        QUALITY_METRICS.DENOMINATOR as quality_denominator comment='Quality metric denominator',
-        QUALITY_METRICS.RATE_PERCENTAGE as quality_rate comment='Quality metric rate percentage'
+        QUALITY_METRICS.NUMERATOR as numerator comment='Quality metric numerator',
+        QUALITY_METRICS.DENOMINATOR as denominator comment='Quality metric denominator',
+        QUALITY_METRICS.RATE_PERCENTAGE as rate_percentage comment='Quality metric rate percentage'
     )
     dimensions (
         DEPARTMENTS.DEPARTMENT_NAME as department_name with synonyms=('department','unit','service') comment='Hospital department name',
         DEPARTMENTS.DEPARTMENT_TYPE as department_type comment='Type of department',
         DEPARTMENTS.BED_CAPACITY as bed_capacity comment='Department bed capacity',
-        OPERATIONS.MEASURE_DATE as operational_date with synonyms=('date') comment='Date of operational measurement',
+        OPERATIONS.MEASURE_DATE as measure_date with synonyms=('date') comment='Date of operational measurement',
         OPERATIONS.METRIC_TYPE as metric_type comment='Type of operational metric',
         OPERATIONS.METRIC_NAME as metric_name comment='Name of operational metric',
-        QUALITY_METRICS.MEASURE_DATE as quality_date comment='Date of quality measurement',
+        QUALITY_METRICS.MEASURE_DATE as measure_date comment='Date of quality measurement',
         QUALITY_METRICS.QUALITY_MEASURE as quality_measure comment='Quality measure name',
         QUALITY_METRICS.BENCHMARK_RATE as benchmark_rate comment='Quality benchmark rate',
         QUALITY_METRICS.MEETS_BENCHMARK as meets_benchmark comment='Whether quality metric meets benchmark'
     )
     metrics (
-        OPERATIONS.AVG_METRIC_VALUE as AVG(operations.operational_metric_value) comment='Average operational metric value',
-        OPERATIONS.TARGET_ACHIEVEMENT_RATE as AVG(CASE WHEN operations.operational_metric_value >= operations.target_value THEN 1.0 ELSE 0.0 END) comment='Rate of achieving operational targets',
-        QUALITY_METRICS.OVERALL_QUALITY_RATE as AVG(quality_metrics.quality_rate) comment='Overall quality rate across metrics',
+        OPERATIONS.AVG_METRIC_VALUE as AVG(operations.metric_value) comment='Average operational metric value',
+        OPERATIONS.TARGET_ACHIEVEMENT_RATE as AVG(CASE WHEN operations.metric_value >= operations.target_value THEN 1.0 ELSE 0.0 END) comment='Rate of achieving operational targets',
+        QUALITY_METRICS.OVERALL_QUALITY_RATE as AVG(quality_metrics.rate_percentage) comment='Overall quality rate across metrics',
         QUALITY_METRICS.BENCHMARK_ACHIEVEMENT_RATE as AVG(CASE WHEN quality_metrics.meets_benchmark THEN 1.0 ELSE 0.0 END) comment='Rate of meeting quality benchmarks'
     )
     comment='Semantic view for operational analytics including departmental metrics and quality measures';
@@ -136,15 +136,15 @@ CREATE OR REPLACE SEMANTIC VIEW PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.RESEA
         STUDIES.PRINCIPAL_INVESTIGATOR as principal_investigator with synonyms=('PI','researcher','investigator') comment='Principal investigator name',
         STUDIES.STUDY_PHASE as study_phase comment='Phase of research study',
         STUDIES.STUDY_STATUS as study_status comment='Current status of study',
-        STUDIES.START_DATE as study_start_date comment='Study start date',
-        STUDIES.END_DATE as study_end_date comment='Study end date',
+        STUDIES.START_DATE as start_date comment='Study start date',
+        STUDIES.END_DATE as end_date comment='Study end date',
         RESEARCH_OUTCOMES.OUTCOME_DATE as outcome_date with synonyms=('date') comment='Date of outcome measurement',
         RESEARCH_OUTCOMES.OUTCOME_TYPE as outcome_type comment='Type of research outcome',
         RESEARCH_OUTCOMES.OUTCOME_MEASURE as outcome_measure comment='Specific outcome measure',
-        PATIENTS.GENDER as patient_gender comment='Patient gender',
-        PATIENTS.RACE_ETHNICITY as patient_race_ethnicity comment='Patient race and ethnicity',
+        PATIENTS.GENDER as gender comment='Patient gender',
+        PATIENTS.RACE_ETHNICITY as race_ethnicity comment='Patient race and ethnicity',
         PROVIDERS.PROVIDER_NAME as provider_name comment='Healthcare provider name',
-        PROVIDERS.SPECIALTY as provider_specialty comment='Provider medical specialty'
+        PROVIDERS.SPECIALTY as specialty comment='Provider medical specialty'
     )
     metrics (
         RESEARCH_OUTCOMES.TOTAL_PARTICIPANTS as COUNT(DISTINCT research_outcomes.patient_key) comment='Total number of study participants',
@@ -174,12 +174,12 @@ CREATE OR REPLACE SEMANTIC VIEW PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.FINAN
         FINANCIAL_TRANSACTIONS.CHARGE_AMOUNT as charge_amount comment='Charge amount in dollars',
         FINANCIAL_TRANSACTIONS.PAYMENT_AMOUNT as payment_amount comment='Payment amount in dollars',
         FINANCIAL_TRANSACTIONS.ADJUSTMENT_AMOUNT as adjustment_amount comment='Adjustment amount in dollars',
-        ENCOUNTERS.TOTAL_CHARGES as encounter_charges comment='Total charges for encounter'
+        ENCOUNTERS.TOTAL_CHARGES as total_charges comment='Total charges for encounter'
     )
     dimensions (
         FINANCIAL_TRANSACTIONS.TRANSACTION_DATE as transaction_date with synonyms=('date') comment='Date of financial transaction',
         FINANCIAL_TRANSACTIONS.TRANSACTION_TYPE as transaction_type comment='Type of transaction (Charge, Payment, Adjustment)',
-        PATIENTS.INSURANCE_TYPE as patient_insurance_type comment='Patient insurance type',
+        PATIENTS.INSURANCE_TYPE as insurance_type comment='Patient insurance type',
         PATIENTS.RACE_ETHNICITY as race_ethnicity comment='Patient race and ethnicity',
         PAYERS.PAYER_NAME as payer_name with synonyms=('insurance company','payer') comment='Insurance payer name',
         PAYERS.PAYER_TYPE as payer_type comment='Type of payer (Medicaid, Private, Self-Pay)',
