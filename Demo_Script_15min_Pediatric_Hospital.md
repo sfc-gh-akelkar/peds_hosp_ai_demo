@@ -45,11 +45,11 @@
 - "No SQL knowledge required - just business questions"
 
 #### **Live Demo - Query 2:**
-**Type:** *"Show me readmission rates by department this quarter"*
+**Type:** *"Show me readmission rates by department for July through September 2024"*
 
 **Highlight:**
 - "It knows 'readmission rates' means calculating percentages of return visits"
-- "Automatically filters to current quarter"
+- "Automatically filters to the specified time period"
 - "Joins multiple tables behind the scenes"
 
 #### **Live Demo - Query 3:**
