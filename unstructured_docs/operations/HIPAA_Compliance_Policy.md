@@ -1,5 +1,5 @@
 # HIPAA Compliance Policy
-**Lurie Children's Hospital**  
+**Pediatric Hospital**  
 **Document Version**: 4.1  
 **Effective Date**: January 1, 2025  
 **Review Date**: December 31, 2025  
@@ -7,7 +7,7 @@
 
 ## Purpose
 
-This policy establishes comprehensive guidelines for protecting Protected Health Information (PHI) and ensuring compliance with the Health Insurance Portability and Accountability Act (HIPAA) Privacy and Security Rules at Lurie Children's Hospital.
+This policy establishes comprehensive guidelines for protecting Protected Health Information (PHI) and ensuring compliance with the Health Insurance Portability and Accountability Act (HIPAA) Privacy and Security Rules at pediatric hospitals.
 
 ## Scope
 
@@ -19,7 +19,7 @@ This policy applies to all:
 
 ## Policy Statement
 
-Lurie Children's Hospital is committed to protecting the privacy and security of patient health information while supporting quality patient care, education, research, and healthcare operations. All PHI must be handled in accordance with HIPAA regulations and hospital policies.
+Pediatric hospitals are committed to protecting the privacy and security of patient health information while supporting quality patient care, education, research, and healthcare operations. All PHI must be handled in accordance with HIPAA regulations and hospital policies.
 
 ## Definitions
 

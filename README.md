@@ -1,7 +1,7 @@
-# Snowflake Intelligence Demo - Lurie Children's Hospital
+# Snowflake Intelligence Demo - Pediatric Hospital
 **Pediatric Healthcare Analytics Platform**
 
-This project demonstrates comprehensive Snowflake Intelligence capabilities for pediatric healthcare, specifically designed for Lurie Children's Hospital. The demo showcases clinical analytics, operational excellence, research insights, and HIPAA-compliant data governance.
+This project demonstrates comprehensive Snowflake Intelligence capabilities for pediatric healthcare organizations. The demo showcases clinical analytics, operational excellence, research insights, and HIPAA-compliant data governance.
 
 ## Healthcare Intelligence Capabilities
 
@@ -22,9 +22,9 @@ Execute the complete healthcare demo setup with one script:
 ```
 
 ### What the Setup Creates
-- `Lurie_Hospital_Demo` role with healthcare-specific permissions
-- `Lurie_Hospital_demo_wh` warehouse with auto-suspend/resume
-- `LURIE_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA` database and schema
+- `Pediatric_Hospital_Demo` role with healthcare-specific permissions
+- `Pediatric_Hospital_demo_wh` warehouse with auto-suspend/resume
+- `PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA` database and schema
 - Healthcare data model with pediatric focus
 - 4 semantic views for natural language queries
 - 3 Cortex Search services for clinical documents
@@ -59,7 +59,7 @@ Execute the complete healthcare demo setup with one script:
 
 ## AI Agent Capabilities
 
-The **Lurie Children's Hospital AI Assistant** provides:
+The **Pediatric Hospital AI Assistant** provides:
 
 - **Clinical Decision Support**: Evidence-based treatment recommendations
 - **Operational Insights**: Real-time capacity and quality monitoring  
@@ -81,7 +81,7 @@ The **Lurie Children's Hospital AI Assistant** provides:
 - Safety protocols and incident response
 
 ### Research Documents
-- Population Health Research Study (Northwestern collaboration)
+- Population Health Research Study (Academic collaboration framework)
 - IRB protocols and data use agreements
 - Academic partnership frameworks
 
@@ -138,7 +138,7 @@ The **Lurie Children's Hospital AI Assistant** provides:
 - **Environmental Health**: EPA air quality and allergen monitoring
 - **Research Literature**: PubMed integration for evidence-based medicine
 - **Public Health Data**: CDC surveillance and population health trends
-- **Academic Collaboration**: Secure data sharing with Northwestern University
+- **Academic Collaboration**: Secure data sharing with university partners
 
 ## Implementation Guide
 
@@ -182,7 +182,7 @@ The **Lurie Children's Hospital AI Assistant** provides:
 
 ### 🔬 Research Acceleration
 - **50% faster** research query processing and analysis
-- **Enhanced collaboration** with Northwestern and other academic partners
+- **Enhanced collaboration** with university and other academic partners
 - **Population health insights** for community benefit initiatives
 - **Grant competitiveness** through robust data infrastructure
 
@@ -194,13 +194,13 @@ The **Lurie Children's Hospital AI Assistant** provides:
 
 ## Support & Documentation
 
-- **Demo Script**: `Demo_Script_15min_Lurie_Childrens.md` - Complete 15-minute presentation guide
+- **Demo Script**: `Demo_Script_15min_Pediatric_Hospital.md` - Complete 15-minute presentation guide
 - **Transformation Guide**: `Healthcare_Demo_Transformation_Summary.md` - Detailed implementation documentation
 - **SQL Schema**: `sql_scripts/healthcare_demo_setup.sql` - Complete database and AI agent setup
 
 ## Contact & Collaboration
 
-This demo is designed for Lurie Children's Hospital to showcase Snowflake Intelligence capabilities in pediatric healthcare. For questions about implementation, customization, or academic collaboration opportunities, please contact the project team.
+This demo showcases Snowflake Intelligence capabilities in pediatric healthcare for children's hospitals and healthcare organizations. For questions about implementation, customization, or academic collaboration opportunities, please contact the project team.
 
 ---
 

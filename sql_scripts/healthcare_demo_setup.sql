@@ -1,6 +1,6 @@
 -- ========================================================================
 -- Snowflake AI Demo - Pediatric Hospital Setup Script
--- Lurie Children's Hospital Demo - Healthcare Analytics
+-- Pediatric Hospital Demo - Healthcare Analytics
 -- This script creates healthcare-specific database, schema, tables, and loads synthetic medical data
 -- ========================================================================
 
@@ -11,33 +11,33 @@ USE ROLE accountadmin;
 GRANT USAGE ON DATABASE snowflake_intelligence TO ROLE PUBLIC;
 GRANT USAGE ON SCHEMA snowflake_intelligence.agents TO ROLE PUBLIC;
 
-create or replace role Lurie_Hospital_Demo;
+create or replace role Pediatric_Hospital_Demo;
 
 SET current_user_name = CURRENT_USER();
 
 -- Grant the role to current user
-GRANT ROLE Lurie_Hospital_Demo TO USER IDENTIFIER($current_user_name);
-GRANT CREATE DATABASE ON ACCOUNT TO ROLE Lurie_Hospital_Demo;
+GRANT ROLE Pediatric_Hospital_Demo TO USER IDENTIFIER($current_user_name);
+GRANT CREATE DATABASE ON ACCOUNT TO ROLE Pediatric_Hospital_Demo;
 
 -- Create a dedicated warehouse for the healthcare demo
-CREATE OR REPLACE WAREHOUSE Lurie_Hospital_demo_wh 
+CREATE OR REPLACE WAREHOUSE Pediatric_Hospital_demo_wh 
     WITH WAREHOUSE_SIZE = 'XSMALL'
     AUTO_SUSPEND = 300
     AUTO_RESUME = TRUE;
 
 -- Grant usage on warehouse
-GRANT USAGE ON WAREHOUSE Lurie_Hospital_demo_wh TO ROLE Lurie_Hospital_Demo;
+GRANT USAGE ON WAREHOUSE Pediatric_Hospital_demo_wh TO ROLE Pediatric_Hospital_Demo;
 
 -- Set default role and warehouse
-ALTER USER IDENTIFIER($current_user_name) SET DEFAULT_ROLE = Lurie_Hospital_Demo;
-ALTER USER IDENTIFIER($current_user_name) SET DEFAULT_WAREHOUSE = Lurie_Hospital_demo_wh;
+ALTER USER IDENTIFIER($current_user_name) SET DEFAULT_ROLE = Pediatric_Hospital_Demo;
+ALTER USER IDENTIFIER($current_user_name) SET DEFAULT_WAREHOUSE = Pediatric_Hospital_demo_wh;
 
 -- Switch to demo role
-use role Lurie_Hospital_Demo;
+use role Pediatric_Hospital_Demo;
 
 -- Create database and schema
-CREATE OR REPLACE DATABASE LURIE_HOSPITAL_AI_DEMO;
-USE DATABASE LURIE_HOSPITAL_AI_DEMO;
+CREATE OR REPLACE DATABASE PEDIATRIC_HOSPITAL_AI_DEMO;
+USE DATABASE PEDIATRIC_HOSPITAL_AI_DEMO;
 
 CREATE SCHEMA IF NOT EXISTS CLINICAL_SCHEMA;
 USE SCHEMA CLINICAL_SCHEMA;
@@ -64,9 +64,9 @@ CREATE OR REPLACE API INTEGRATION healthcare_git_api_integration
     API_ALLOWED_PREFIXES = ('https://github.com/your-repo/')
     ENABLED = TRUE;
 
-GRANT USAGE ON INTEGRATION healthcare_git_api_integration TO ROLE Lurie_Hospital_Demo;
+GRANT USAGE ON INTEGRATION healthcare_git_api_integration TO ROLE Pediatric_Hospital_Demo;
 
-use role Lurie_Hospital_Demo;
+use role Pediatric_Hospital_Demo;
 
 -- Create internal stage for healthcare data files
 CREATE OR REPLACE STAGE INTERNAL_HEALTHCARE_STAGE
@@ -364,7 +364,7 @@ SHOW TABLES IN SCHEMA CLINICAL_SCHEMA;
 -- ========================================================================
 
 -- Clinical Analytics Semantic View
-CREATE OR REPLACE SEMANTIC VIEW LURIE_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.CLINICAL_ANALYTICS_VIEW
+CREATE OR REPLACE SEMANTIC VIEW PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.CLINICAL_ANALYTICS_VIEW
     tables (
         PATIENTS as PATIENT_DIM primary key (PATIENT_KEY) with synonyms=('patients','children','kids') comment='Patient demographic and enrollment information',
         ENCOUNTERS as PATIENT_ENCOUNTER_FACT primary key (ENCOUNTER_KEY) with synonyms=('visits','admissions','encounters') comment='Patient encounters including ED visits and hospitalizations',
@@ -424,7 +424,7 @@ CREATE OR REPLACE SEMANTIC VIEW LURIE_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.CLINICAL_
     comment='Semantic view for clinical analytics including patient encounters, diagnoses, and treatments';
 
 -- Operational Analytics Semantic View  
-CREATE OR REPLACE SEMANTIC VIEW LURIE_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.OPERATIONAL_ANALYTICS_VIEW
+CREATE OR REPLACE SEMANTIC VIEW PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.OPERATIONAL_ANALYTICS_VIEW
     tables (
         DEPARTMENTS as DEPARTMENT_DIM primary key (DEPARTMENT_KEY) with synonyms=('departments','units','services') comment='Hospital departments and units',
         OPERATIONAL_METRICS as OPERATIONAL_FACT primary key (OPERATIONAL_KEY) with synonyms=('operations','metrics','performance') comment='Operational performance metrics',
@@ -465,7 +465,7 @@ CREATE OR REPLACE SEMANTIC VIEW LURIE_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.OPERATION
     comment='Semantic view for operational analytics including performance metrics and quality measures';
 
 -- Research Analytics Semantic View
-CREATE OR REPLACE SEMANTIC VIEW LURIE_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.RESEARCH_ANALYTICS_VIEW
+CREATE OR REPLACE SEMANTIC VIEW PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.RESEARCH_ANALYTICS_VIEW
     tables (
         STUDIES as RESEARCH_STUDY_DIM primary key (STUDY_KEY) with synonyms=('studies','research','trials') comment='Research studies and clinical trials',
         RESEARCH_OUTCOMES as RESEARCH_OUTCOMES_FACT primary key (OUTCOME_KEY) with synonyms=('outcomes','results','findings') comment='Research study outcomes and results',
@@ -506,7 +506,7 @@ CREATE OR REPLACE SEMANTIC VIEW LURIE_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.RESEARCH_
     comment='Semantic view for research analytics including study outcomes and participant data';
 
 -- Financial Analytics Semantic View
-CREATE OR REPLACE SEMANTIC VIEW LURIE_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.FINANCIAL_ANALYTICS_VIEW
+CREATE OR REPLACE SEMANTIC VIEW PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.FINANCIAL_ANALYTICS_VIEW
     tables (
         FINANCIAL_TRANSACTIONS as FINANCIAL_FACT primary key (TRANSACTION_KEY) with synonyms=('transactions','billing','charges') comment='Financial transactions and billing data',
         PATIENTS as PATIENT_DIM primary key (PATIENT_KEY) with synonyms=('patients') comment='Patient information for financial analysis',
@@ -592,21 +592,21 @@ SELECT '', 'quality_metrics_fact', COUNT(*) FROM quality_metrics_fact;
 CREATE OR REPLACE TABLE parsed_healthcare_documents AS 
 SELECT 
     relative_path, 
-    BUILD_STAGE_FILE_URL('@LURIE_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.INTERNAL_HEALTHCARE_STAGE', relative_path) as file_url,
-    TO_FILE(BUILD_STAGE_FILE_URL('@LURIE_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.INTERNAL_HEALTHCARE_STAGE', relative_path)) file_object,
+    BUILD_STAGE_FILE_URL('@PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.INTERNAL_HEALTHCARE_STAGE', relative_path) as file_url,
+    TO_FILE(BUILD_STAGE_FILE_URL('@PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.INTERNAL_HEALTHCARE_STAGE', relative_path)) file_object,
     SNOWFLAKE.CORTEX.PARSE_DOCUMENT(
-        @LURIE_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.INTERNAL_HEALTHCARE_STAGE,
+        @PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.INTERNAL_HEALTHCARE_STAGE,
         relative_path,
         {'mode':'LAYOUT'}
     ):content::string as Content
-FROM directory(@LURIE_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.INTERNAL_HEALTHCARE_STAGE) 
+FROM directory(@PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.INTERNAL_HEALTHCARE_STAGE) 
 WHERE relative_path ilike 'unstructured_docs/%.md';
 
 -- Create search service for clinical documents
 CREATE OR REPLACE CORTEX SEARCH SERVICE Search_clinical_docs
     ON content
     ATTRIBUTES relative_path, file_url, title
-    WAREHOUSE = Lurie_Hospital_demo_wh
+    WAREHOUSE = Pediatric_Hospital_demo_wh
     TARGET_LAG = '30 day'
     EMBEDDING_MODEL = 'snowflake-arctic-embed-l-v2.0'
     AS (
@@ -623,7 +623,7 @@ CREATE OR REPLACE CORTEX SEARCH SERVICE Search_clinical_docs
 CREATE OR REPLACE CORTEX SEARCH SERVICE Search_operations_docs
     ON content
     ATTRIBUTES relative_path, file_url, title
-    WAREHOUSE = Lurie_Hospital_demo_wh
+    WAREHOUSE = Pediatric_Hospital_demo_wh
     TARGET_LAG = '30 day'
     EMBEDDING_MODEL = 'snowflake-arctic-embed-l-v2.0'
     AS (
@@ -640,7 +640,7 @@ CREATE OR REPLACE CORTEX SEARCH SERVICE Search_operations_docs
 CREATE OR REPLACE CORTEX SEARCH SERVICE Search_research_docs
     ON content
     ATTRIBUTES relative_path, file_url, title
-    WAREHOUSE = Lurie_Hospital_demo_wh
+    WAREHOUSE = Pediatric_Hospital_demo_wh
     TARGET_LAG = '30 day'
     EMBEDDING_MODEL = 'snowflake-arctic-embed-l-v2.0'
     AS (
@@ -660,35 +660,35 @@ CREATE OR REPLACE CORTEX SEARCH SERVICE Search_research_docs
 use role accountadmin;
 
 -- Create network rule for web access
-CREATE OR REPLACE NETWORK RULE Lurie_Hospital_WebAccessRule
+CREATE OR REPLACE NETWORK RULE Pediatric_Hospital_WebAccessRule
   MODE = EGRESS
   TYPE = HOST_PORT
   VALUE_LIST = ('0.0.0.0:80', '0.0.0.0:443');
 
-GRANT ALL PRIVILEGES ON DATABASE LURIE_HOSPITAL_AI_DEMO TO ROLE ACCOUNTADMIN;
-GRANT ALL PRIVILEGES ON SCHEMA LURIE_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA TO ROLE ACCOUNTADMIN;
-GRANT USAGE ON NETWORK RULE Lurie_Hospital_WebAccessRule TO ROLE accountadmin;
+GRANT ALL PRIVILEGES ON DATABASE PEDIATRIC_HOSPITAL_AI_DEMO TO ROLE ACCOUNTADMIN;
+GRANT ALL PRIVILEGES ON SCHEMA PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA TO ROLE ACCOUNTADMIN;
+GRANT USAGE ON NETWORK RULE Pediatric_Hospital_WebAccessRule TO ROLE accountadmin;
 
-USE SCHEMA LURIE_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA;
+USE SCHEMA PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA;
 
 -- Create external access integration
-CREATE OR REPLACE EXTERNAL ACCESS INTEGRATION Lurie_Hospital_ExternalAccess_Integration
-ALLOWED_NETWORK_RULES = (Lurie_Hospital_WebAccessRule)
+CREATE OR REPLACE EXTERNAL ACCESS INTEGRATION Pediatric_Hospital_ExternalAccess_Integration
+ALLOWED_NETWORK_RULES = (Pediatric_Hospital_WebAccessRule)
 ENABLED = true;
 
 -- Create email notification integration
-CREATE NOTIFICATION INTEGRATION lurie_email_int
+CREATE NOTIFICATION INTEGRATION pediatric_hospital_email_int
   TYPE=EMAIL
   ENABLED=TRUE;
 
 -- Grant permissions to demo role
-GRANT USAGE ON DATABASE snowflake_intelligence TO ROLE Lurie_Hospital_Demo;
-GRANT USAGE ON SCHEMA snowflake_intelligence.agents TO ROLE Lurie_Hospital_Demo;
-GRANT CREATE AGENT ON SCHEMA snowflake_intelligence.agents TO ROLE Lurie_Hospital_Demo;
-GRANT USAGE ON INTEGRATION Lurie_Hospital_ExternalAccess_Integration TO ROLE Lurie_Hospital_Demo;
-GRANT USAGE ON INTEGRATION lurie_email_int TO ROLE Lurie_Hospital_Demo;
+GRANT USAGE ON DATABASE snowflake_intelligence TO ROLE Pediatric_Hospital_Demo;
+GRANT USAGE ON SCHEMA snowflake_intelligence.agents TO ROLE Pediatric_Hospital_Demo;
+GRANT CREATE AGENT ON SCHEMA snowflake_intelligence.agents TO ROLE Pediatric_Hospital_Demo;
+GRANT USAGE ON INTEGRATION Pediatric_Hospital_ExternalAccess_Integration TO ROLE Pediatric_Hospital_Demo;
+GRANT USAGE ON INTEGRATION pediatric_hospital_email_int TO ROLE Pediatric_Hospital_Demo;
 
-use role Lurie_Hospital_Demo;
+use role Pediatric_Hospital_Demo;
 
 -- Create stored procedure for file URLs
 CREATE OR REPLACE PROCEDURE Get_Healthcare_File_URL_SP(
@@ -705,7 +705,7 @@ DECLARE
     presigned_url STRING;
     sql_stmt STRING;
     expiration_seconds INTEGER;
-    stage_name STRING DEFAULT '@LURIE_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.INTERNAL_HEALTHCARE_STAGE';
+    stage_name STRING DEFAULT '@PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.INTERNAL_HEALTHCARE_STAGE';
 BEGIN
     expiration_seconds := EXPIRATION_MINS * 60;
     sql_stmt := 'SELECT GET_PRESIGNED_URL(' || stage_name || ', ' || '''' || RELATIVE_FILE_PATH || '''' || ', ' || expiration_seconds || ') AS url';
@@ -727,7 +727,7 @@ $$
 def send_healthcare_alert(session, recipient, subject, text):
     session.call(
         'SYSTEM$SEND_EMAIL',
-        'lurie_email_int',
+        'pediatric_hospital_email_int',
         recipient,
         subject,
         text,
@@ -742,7 +742,7 @@ RETURNS STRING
 LANGUAGE PYTHON
 RUNTIME_VERSION = 3.11
 HANDLER = 'get_health_page'
-EXTERNAL_ACCESS_INTEGRATIONS = (Lurie_Hospital_ExternalAccess_Integration)
+EXTERNAL_ACCESS_INTEGRATIONS = (Pediatric_Hospital_ExternalAccess_Integration)
 PACKAGES = ('requests', 'beautifulsoup4')
 AS
 $$
@@ -768,16 +768,16 @@ $$;
 -- SNOWFLAKE INTELLIGENCE AGENT FOR HEALTHCARE
 -- ========================================================================
 
-CREATE OR REPLACE AGENT SNOWFLAKE_INTELLIGENCE.AGENTS.Lurie_Childrens_Hospital_Agent
-WITH PROFILE='{ "display_name": "Lurie Children\'s Hospital AI Assistant" }'
-    COMMENT=$$ Healthcare AI agent for clinical analytics, operational insights, research support, and HIPAA-compliant data analysis at Lurie Children's Hospital. $$
+CREATE OR REPLACE AGENT SNOWFLAKE_INTELLIGENCE.AGENTS.Pediatric_Hospital_Agent
+WITH PROFILE='{ "display_name": "Pediatric Hospital AI Assistant" }'
+    COMMENT=$$ Healthcare AI agent for clinical analytics, operational insights, research support, and HIPAA-compliant data analysis for pediatric hospitals. $$
 FROM SPECIFICATION $$
 {
   "models": {
     "orchestration": ""
   },
   "instructions": {
-    "response": "You are a healthcare data analyst specializing in pediatric medicine at Lurie Children's Hospital. You have access to clinical, operational, research, and financial data. Always prioritize patient safety, maintain HIPAA compliance, and provide evidence-based insights. When discussing clinical data, emphasize that all information is de-identified and compliant with healthcare privacy regulations. Focus on pediatric-specific insights and considerations. Provide visualizations when appropriate, with line charts for trends and bar charts for categories.",
+    "response": "You are a healthcare data analyst specializing in pediatric medicine. You have access to clinical, operational, research, and financial data. Always prioritize patient safety, maintain HIPAA compliance, and provide evidence-based insights. When discussing clinical data, emphasize that all information is de-identified and compliant with healthcare privacy regulations. Focus on pediatric-specific insights and considerations. Provide visualizations when appropriate, with line charts for trends and bar charts for categories.",
     "orchestration": "Use cortex search for clinical protocols, policies, and research documents. Pass relevant findings to cortex analyst for detailed data analysis. Always maintain HIPAA compliance and ensure all patient data is properly de-identified. For clinical questions, prioritize patient safety and evidence-based medicine. When analyzing population health data, consider social determinants of health and health equity issues. For operational queries, focus on quality improvement and patient safety metrics.",
     "sample_questions": [
       {
@@ -924,38 +924,38 @@ FROM SPECIFICATION $$
         "type": "warehouse",
         "warehouse": "LURIE_HOSPITAL_DEMO_WH"
       },
-      "identifier": "LURIE_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.GET_HEALTHCARE_FILE_URL_SP",
+      "identifier": "PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.GET_HEALTHCARE_FILE_URL_SP",
       "name": "GET_HEALTHCARE_FILE_URL_SP(VARCHAR, DEFAULT NUMBER)",
       "type": "procedure"
     },
     "Query Clinical Data": {
-      "semantic_view": "LURIE_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.CLINICAL_ANALYTICS_VIEW"
+      "semantic_view": "PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.CLINICAL_ANALYTICS_VIEW"
     },
     "Query Financial Data": {
-      "semantic_view": "LURIE_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.FINANCIAL_ANALYTICS_VIEW"
+      "semantic_view": "PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.FINANCIAL_ANALYTICS_VIEW"
     },
     "Query Operational Data": {
-      "semantic_view": "LURIE_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.OPERATIONAL_ANALYTICS_VIEW"
+      "semantic_view": "PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.OPERATIONAL_ANALYTICS_VIEW"
     },
     "Query Research Data": {
-      "semantic_view": "LURIE_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.RESEARCH_ANALYTICS_VIEW"
+      "semantic_view": "PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.RESEARCH_ANALYTICS_VIEW"
     },
     "Search Clinical Documents": {
       "id_column": "RELATIVE_PATH",
       "max_results": 5,
-      "name": "LURIE_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.SEARCH_CLINICAL_DOCS",
+      "name": "PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.SEARCH_CLINICAL_DOCS",
       "title_column": "TITLE"
     },
     "Search Operational Documents": {
       "id_column": "RELATIVE_PATH", 
       "max_results": 5,
-      "name": "LURIE_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.SEARCH_OPERATIONS_DOCS",
+      "name": "PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.SEARCH_OPERATIONS_DOCS",
       "title_column": "TITLE"
     },
     "Search Research Documents": {
       "id_column": "RELATIVE_PATH",
       "max_results": 5,
-      "name": "LURIE_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.SEARCH_RESEARCH_DOCS", 
+      "name": "PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.SEARCH_RESEARCH_DOCS", 
       "title_column": "TITLE"
     },
     "Send_Healthcare_Alert": {
@@ -964,7 +964,7 @@ FROM SPECIFICATION $$
         "type": "warehouse",
         "warehouse": "LURIE_HOSPITAL_DEMO_WH"
       },
-      "identifier": "LURIE_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.SEND_HEALTHCARE_ALERT",
+      "identifier": "PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.SEND_HEALTHCARE_ALERT",
       "name": "SEND_HEALTHCARE_ALERT(VARCHAR, VARCHAR, VARCHAR)",
       "type": "procedure"
     },
@@ -974,7 +974,7 @@ FROM SPECIFICATION $$
         "type": "warehouse",
         "warehouse": "LURIE_HOSPITAL_DEMO_WH"
       },
-      "identifier": "LURIE_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.WEB_SCRAPE_HEALTH_DATA",
+      "identifier": "PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.WEB_SCRAPE_HEALTH_DATA",
       "name": "WEB_SCRAPE_HEALTH_DATA(VARCHAR)",
       "type": "function"
     }

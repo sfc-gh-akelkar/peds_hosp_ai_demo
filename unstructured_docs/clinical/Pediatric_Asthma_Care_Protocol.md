@@ -6,7 +6,7 @@
 
 ## Purpose
 
-This protocol establishes evidence-based guidelines for the assessment, treatment, and management of pediatric asthma patients at Lurie Children's Hospital to ensure consistent, high-quality care and improved patient outcomes.
+This protocol establishes evidence-based guidelines for the assessment, treatment, and management of pediatric asthma patients at pediatric hospitals to ensure consistent, high-quality care and improved patient outcomes.
 
 ## Scope
 

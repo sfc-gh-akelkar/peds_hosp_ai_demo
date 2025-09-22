@@ -13,7 +13,7 @@
 
 Asthma affects approximately 6.2 million children in the United States, with higher prevalence rates in urban, low-income communities. Children from racial and ethnic minority backgrounds experience disproportionately higher rates of asthma-related emergency department visits, hospitalizations, and mortality. Understanding the complex interplay of environmental, social, and clinical factors affecting pediatric asthma outcomes is crucial for developing targeted interventions.
 
-Lurie Children's Hospital serves a diverse urban population with significant disparities in asthma outcomes. Our hospital data shows:
+Pediatric hospitals serve diverse urban populations with significant disparities in asthma outcomes. Hospital data shows:
 - 25% higher ED visit rates for asthma in zip codes with <100% federal poverty level
 - 40% increased readmission rates among non-English speaking families
 - Seasonal variations correlating with air quality indices and housing conditions
@@ -38,7 +38,7 @@ Prospective cohort study with retrospective analysis of existing clinical data
 **Inclusion Criteria**:
 - Children ages 2-17 years
 - Physician-confirmed asthma diagnosis (ICD-10 J45.x)
-- At least one healthcare encounter at Lurie Children's Hospital in past 12 months
+- At least one healthcare encounter at participating hospital in past 12 months
 - Primary residence in Chicago metropolitan area
 - Parent/guardian willing to provide informed consent
 
@@ -308,7 +308,7 @@ $$;
 
 ## Data Sharing and Collaboration
 
-### Northwestern University Partnership
+### University Partnership
 - Shared research database for genetic analysis
 - Combined population health initiatives
 - Joint grant applications and publications
@@ -397,8 +397,8 @@ AND enrollment_date >= '2024-01-01';
 ## Study Team
 
 **Principal Investigator**: Dr. Sarah Johnson, MD, MPH  
-Division of Pulmonology, Lurie Children's Hospital  
-Professor of Pediatrics, Northwestern University Feinberg School of Medicine
+Division of Pulmonology, Pediatric Hospital  
+Professor of Pediatrics, University Medical School
 
 **Co-Investigators**:
 - Dr. Michael Chen, MD: Clinical outcomes and care quality

@@ -1,14 +1,14 @@
 # 15-Minute Snowflake Intelligence Demo Script
-**Lurie Children's Hospital - Pediatric Healthcare Analytics**
+**Pediatric Hospital - Healthcare Analytics**
 
 ## Demo Overview
 **Duration**: 15 minutes  
-**Audience**: Lurie Children's Hospital Leadership & IT Team  
+**Audience**: Pediatric Hospital Leadership & IT Team  
 **Focus**: Clinical Analytics, Operational Excellence, Research Insights, HIPAA Compliance
 
 ## Demo Setup (Pre-Demo - 2 minutes)
-- **Database**: `LURIE_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA`
-- **Agent**: Lurie Children's Hospital AI Assistant
+- **Database**: `PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA`
+- **Agent**: Pediatric Hospital AI Assistant
 - **Data Scope**: De-identified pediatric patient data, clinical protocols, research studies
 - **Compliance**: HIPAA-compliant with role-based access controls
 
@@ -121,7 +121,7 @@
 *"Demonstrate secure data handling and policy compliance"*
 
 ### Demo Query 7: Policy and Compliance Search
-**Question**: *"What are our HIPAA requirements for sharing research data with Northwestern University?"*
+**Question**: *"What are our HIPAA requirements for sharing research data with university partners?"*
 
 **Expected Results**:
 - Document search finds HIPAA Compliance Policy
@@ -140,7 +140,7 @@
 
 ## **Demo Conclusion & Key Messages (1 minute)**
 
-### **Value Proposition for Lurie Children's Hospital**:
+### **Value Proposition for Pediatric Hospitals**:
 
 1. **Clinical Excellence**: 
    - Evidence-based decision making with real patient data
@@ -153,7 +153,7 @@
    - Data-driven staff scheduling and workflow optimization
 
 3. **Research Innovation**:
-   - Secure collaboration with Northwestern and other partners
+   - Secure collaboration with university and other academic partners
    - Accelerated research insights from large datasets
    - Population health initiatives benefiting the community
 

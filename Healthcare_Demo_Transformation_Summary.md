@@ -1,9 +1,9 @@
 # Healthcare Demo Transformation Summary
-**From Retail/Corporate Demo to Lurie Children's Hospital Pediatric Healthcare Demo**
+**From Retail/Corporate Demo to Pediatric Hospital Healthcare Demo**
 
 ## Overview
 
-I've successfully transformed the original Snowflake Intelligence demo from a retail/corporate focus to a comprehensive pediatric healthcare analytics solution specifically tailored for Lurie Children's Hospital. This transformation addresses their key use cases while maintaining HIPAA compliance and focusing on pediatric-specific healthcare scenarios.
+I've successfully transformed the original Snowflake Intelligence demo from a retail/corporate focus to a comprehensive pediatric healthcare analytics solution tailored for pediatric hospitals. This transformation addresses key healthcare use cases while maintaining HIPAA compliance and focusing on pediatric-specific healthcare scenarios.
 
 ## Key Changes Made
 
@@ -64,7 +64,7 @@ Each view includes pediatric-specific synonyms, metrics, and healthcare terminol
 
 ### 4. AI Agent Reconfiguration ✅
 
-**Healthcare-Specific Agent**: "Lurie Children's Hospital AI Assistant"
+**Healthcare-Specific Agent**: "Pediatric Hospital AI Assistant"
 
 **Key Features**:
 - HIPAA-compliant responses with privacy awareness
@@ -108,7 +108,7 @@ Each view includes pediatric-specific synonyms, metrics, and healthcare terminol
 - **Purpose**: Realistic healthcare content for document search and policy compliance
 
 ### 3. Demo Script
-- **File**: `Demo_Script_15min_Lurie_Childrens.md`
+- **File**: `Demo_Script_15min_Pediatric_Hospital.md`
 - **Purpose**: Structured 15-minute demo with healthcare-specific scenarios
 - **Features**: Clinical decision support, operational analytics, research insights
 
@@ -226,4 +226,4 @@ Each view includes pediatric-specific synonyms, metrics, and healthcare terminol
 - **Reduced IT costs** through cloud-native architecture
 - **Improved revenue cycle** through better charge capture and billing analytics
 
-This transformation creates a comprehensive healthcare analytics platform that addresses Lurie Children's Hospital's specific needs while showcasing the full capabilities of Snowflake Intelligence in a healthcare setting.
+This transformation creates a comprehensive healthcare analytics platform that addresses pediatric hospitals' needs while showcasing the full capabilities of Snowflake Intelligence in a healthcare setting.
