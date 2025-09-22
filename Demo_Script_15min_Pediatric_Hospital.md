@@ -65,12 +65,12 @@
 **Type:** *"Analyze our asthma patient outcomes and find current CDC guidelines for pediatric asthma care to compare with our protocols"*
 
 **Highlight:**
-- "Now combining structured data analysis with external research"
+- "Now combining structured data analysis with external research capability"
 - "Single query orchestrates multiple AI capabilities:"
 - "  • Cortex Analyst for patient outcome analysis"
 - "  • Cortex Search for internal protocol review"  
-- "  • Web integration for CDC guideline retrieval"
-- "This is true enterprise AI orchestration"
+- "  • External data integration* for guideline retrieval (*simulated for demo)"
+- "This demonstrates enterprise AI orchestration across data sources"
 
 ### **The Business Impact:**
 "Dr. Chen's comprehensive board presentation - which would normally take a week to prepare - is now ready in minutes. All data sources, protocols, and external guidelines analyzed and correlated through intelligent conversation."
@@ -89,7 +89,7 @@
 - "Watch how it orchestrates multiple AI capabilities seamlessly:"
 - "  • **Cortex Analyst** queries our quality metrics database"
 - "  • **Cortex Search** finds our internal improvement policies"  
-- "  • **External integration** pulls current industry benchmarks"
+- "  • **External integration capability** for industry benchmarks (simulated)"
 - "  • **AI reasoning** correlates all sources to identify gaps"
 - "All through natural conversation - no switching between tools"
 
@@ -106,10 +106,10 @@
 **Type:** *"Analyze our population health outcomes for chronic conditions and compare with current research on evidence-based interventions"*
 
 **Highlight:**
-- "Combines internal performance data with external research"
+- "Combines internal performance data with external research capability"
 - "Understands medical terminology and disease relationships"
-- "Provides evidence-based recommendations for improvement"
-- "This level of analysis normally requires clinical research teams"
+- "Shows how external data integration would provide evidence-based recommendations"
+- "Demonstrates the framework for clinical research team automation"
 
 ## **⏱️ Minutes 12-14: The Enterprise AI Difference**
 
