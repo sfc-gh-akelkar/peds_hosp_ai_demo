@@ -65,7 +65,12 @@ UNION ALL
 SELECT 
     '2️⃣',
     'Run 02_cortex_search_setup.sql',
-    'Sets up document search for clinical protocols and policies'
+    'Sets up document search tables and services'
+UNION ALL
+SELECT 
+    '2️⃣ᵇ',
+    'Run 02a_healthcare_documents_data.sql',
+    'Loads sample healthcare documents into search tables'
 UNION ALL
 SELECT 
     '3️⃣',

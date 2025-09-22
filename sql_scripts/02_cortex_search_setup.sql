@@ -14,69 +14,68 @@ USE WAREHOUSE PEDIATRIC_HOSPITAL_DEMO_WH;
 -- CORTEX SEARCH SERVICES FOR HEALTHCARE DOCUMENTS
 -- ========================================================================
 
--- Create table for parsed healthcare documents
-CREATE OR REPLACE TABLE parsed_healthcare_documents AS 
-SELECT 
-    relative_path, 
-    BUILD_STAGE_FILE_URL('@PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.INTERNAL_HEALTHCARE_STAGE', relative_path) as file_url,
-    TO_FILE(BUILD_STAGE_FILE_URL('@PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.INTERNAL_HEALTHCARE_STAGE', relative_path)) file_object,
-    SNOWFLAKE.CORTEX.PARSE_DOCUMENT(
-        @PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.INTERNAL_HEALTHCARE_STAGE,
-        relative_path,
-        {'mode':'LAYOUT'}
-    ):content::string as Content
-FROM directory(@PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.INTERNAL_HEALTHCARE_STAGE) 
-WHERE relative_path ilike 'unstructured_docs/%.md';
+-- Create table for healthcare documents with embedded content
+CREATE OR REPLACE TABLE healthcare_documents (
+    document_id VARCHAR(100) PRIMARY KEY,
+    relative_path VARCHAR(500),
+    title VARCHAR(200),
+    category VARCHAR(50),
+    content TEXT,
+    created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP()
+);
 
 -- Create search service for clinical documents
 CREATE OR REPLACE CORTEX SEARCH SERVICE SEARCH_CLINICAL_DOCS
     ON content
-    ATTRIBUTES relative_path, file_url, title
+    ATTRIBUTES document_id, relative_path, title, category
     WAREHOUSE = PEDIATRIC_HOSPITAL_DEMO_WH
-    TARGET_LAG = '30 day'
+    TARGET_LAG = '1 day'
     EMBEDDING_MODEL = 'snowflake-arctic-embed-l-v2.0'
     AS (
         SELECT
+            document_id,
             relative_path,
-            file_url,
-            REGEXP_SUBSTR(relative_path, '[^/]+$') as title,
+            title,
+            category,
             content
-        FROM parsed_healthcare_documents
-        WHERE relative_path ilike '%/clinical/%'
+        FROM healthcare_documents
+        WHERE category = 'clinical'
     );
 
 -- Create search service for operational documents
 CREATE OR REPLACE CORTEX SEARCH SERVICE SEARCH_OPERATIONS_DOCS
     ON content
-    ATTRIBUTES relative_path, file_url, title
+    ATTRIBUTES document_id, relative_path, title, category
     WAREHOUSE = PEDIATRIC_HOSPITAL_DEMO_WH
-    TARGET_LAG = '30 day'
+    TARGET_LAG = '1 day'
     EMBEDDING_MODEL = 'snowflake-arctic-embed-l-v2.0'
     AS (
         SELECT
+            document_id,
             relative_path,
-            file_url,
-            REGEXP_SUBSTR(relative_path, '[^/]+$') as title,
+            title,
+            category,
             content
-        FROM parsed_healthcare_documents
-        WHERE relative_path ilike '%/operations/%'
+        FROM healthcare_documents
+        WHERE category = 'operations'
     );
 
 -- Create search service for research documents
 CREATE OR REPLACE CORTEX SEARCH SERVICE SEARCH_RESEARCH_DOCS
     ON content
-    ATTRIBUTES relative_path, file_url, title
+    ATTRIBUTES document_id, relative_path, title, category
     WAREHOUSE = PEDIATRIC_HOSPITAL_DEMO_WH
-    TARGET_LAG = '30 day'
+    TARGET_LAG = '1 day'
     EMBEDDING_MODEL = 'snowflake-arctic-embed-l-v2.0'
     AS (
         SELECT
+            document_id,
             relative_path,
-            file_url,
-            REGEXP_SUBSTR(relative_path, '[^/]+$') as title,
+            title,
+            category,
             content
-        FROM parsed_healthcare_documents
-        WHERE relative_path ilike '%/research/%'
+        FROM healthcare_documents
+        WHERE category = 'research'
     );
 
 -- ========================================================================
@@ -86,19 +85,33 @@ CREATE OR REPLACE CORTEX SEARCH SERVICE SEARCH_RESEARCH_DOCS
 -- Show all Cortex Search services
 SHOW CORTEX SEARCH SERVICES;
 
--- Verify document parsing results
+-- Verify healthcare documents loaded
 SELECT 
-    'Parsed Documents' as component,
-    COUNT(*) as count,
-    LISTAGG(DISTINCT SPLIT_PART(relative_path, '/', 2), ', ') as document_types
-FROM parsed_healthcare_documents;
+    'Healthcare Documents' as component,
+    COUNT(*) as total_documents,
+    LISTAGG(DISTINCT category, ', ') as categories
+FROM healthcare_documents;
 
--- Test search services (if documents are available)
--- Uncomment and modify these queries to test your search services:
+-- Show documents by category
+SELECT 
+    category,
+    COUNT(*) as document_count,
+    LISTAGG(title, ', ') as document_titles
+FROM healthcare_documents 
+GROUP BY category
+ORDER BY category;
+
+-- Test search services with embedded documents
+-- Uncomment these queries to test your search services:
 
 /*
 -- Test clinical documents search
-SELECT * FROM TABLE(
+SELECT 
+    document_id,
+    title,
+    category,
+    relative_path
+FROM TABLE(
     SEARCH_CLINICAL_DOCS(
         'pediatric asthma treatment protocol',
         {'limit': 3}
@@ -106,17 +119,27 @@ SELECT * FROM TABLE(
 );
 
 -- Test operations documents search  
-SELECT * FROM TABLE(
+SELECT 
+    document_id,
+    title,
+    category,
+    relative_path
+FROM TABLE(
     SEARCH_OPERATIONS_DOCS(
-        'HIPAA compliance policy',
+        'HIPAA compliance policy training',
         {'limit': 3}
     )
 );
 
 -- Test research documents search
-SELECT * FROM TABLE(
+SELECT 
+    document_id,
+    title,
+    category,
+    relative_path
+FROM TABLE(
     SEARCH_RESEARCH_DOCS(
-        'population health study Northwestern',
+        'population health chronic disease management',
         {'limit': 3}
     )
 );
@@ -127,48 +150,52 @@ SELECT * FROM TABLE(
 -- ========================================================================
 
 SELECT '✅ Step 2 Complete: Cortex Search services created successfully!' as status;
-SELECT 'Next: Run 03_semantic_views_setup.sql' as next_step;
+SELECT 'Next: Run 02a_healthcare_documents_data.sql to load sample documents' as next_step;
+SELECT 'Then: Run 03_semantic_views_setup.sql' as final_step;
 
 -- ========================================================================
--- NOTES FOR DOCUMENT LOADING
+-- SIMPLIFIED DOCUMENT APPROACH
 -- ========================================================================
 
 /*
-📋 DOCUMENT LOADING INSTRUCTIONS:
+📋 SIMPLIFIED CORTEX SEARCH SETUP:
 
-To load your healthcare documents into the search services:
+This approach uses embedded document content directly in tables instead of 
+file uploads, making the demo completely self-contained:
 
-1. Upload your documents to the INTERNAL_HEALTHCARE_STAGE:
-   PUT file://path/to/your/documents/* @INTERNAL_HEALTHCARE_STAGE/unstructured_docs/
+✅ BENEFITS:
+• No file upload requirements - documents embedded in SQL
+• Immediate availability - no stage setup needed
+• Self-contained demo - all content included
+• Easier to run and demonstrate
+• Version controlled document content
 
-2. Organize documents in subdirectories:
-   - unstructured_docs/clinical/     (Clinical protocols, care guidelines)
-   - unstructured_docs/operations/   (HIPAA policies, operational procedures)  
-   - unstructured_docs/research/     (Research studies, IRB documents)
+📊 DOCUMENT STRUCTURE:
+• healthcare_documents table with embedded content
+• 6 sample documents across 3 categories:
+  - Clinical: Asthma care protocol, Emergency guidelines
+  - Operations: HIPAA policy, Quality improvement procedures  
+  - Research: Population health study, Clinical trial protocol
 
-3. Supported document types:
-   - Markdown (.md)
-   - PDF files (.pdf) 
-   - Word documents (.docx)
-   - PowerPoint presentations (.pptx)
+🔍 SEARCH SERVICES:
+• SEARCH_CLINICAL_DOCS - Clinical protocols and care guidelines
+• SEARCH_OPERATIONS_DOCS - HIPAA policies and operational procedures
+• SEARCH_RESEARCH_DOCS - Research studies and trial documentation
 
-4. After uploading, refresh the stage and re-run the search service creation:
-   ALTER STAGE INTERNAL_HEALTHCARE_STAGE REFRESH;
+📋 NEXT STEPS:
+1. Run 02a_healthcare_documents_data.sql to load sample documents
+2. Run 03_semantic_views_setup.sql to create semantic views
+3. Run 04_agent_setup.sql to configure the AI agent
+4. Test search services with provided example queries
 
-5. The search services will automatically index the documents for semantic search.
+💡 ADDING MORE DOCUMENTS:
+To add additional documents, simply INSERT more rows into the 
+healthcare_documents table with appropriate category and content.
 
-Example document structure:
-📁 unstructured_docs/
-├── 📁 clinical/
-│   ├── Pediatric_Asthma_Care_Protocol.md
-│   ├── Emergency_Treatment_Guidelines.pdf
-│   └── Clinical_Decision_Support_Tools.docx
-├── 📁 operations/
-│   ├── HIPAA_Compliance_Policy.md
-│   ├── Quality_Improvement_Procedures.pdf
-│   └── Patient_Safety_Protocols.docx
-└── 📁 research/
-    ├── Population_Health_Research_Study.md
-    ├── IRB_Protocol_Template.pdf
-    └── Research_Collaboration_Agreement.docx
+Example:
+INSERT INTO healthcare_documents VALUES
+('CLINICAL_003', 'path/to/new_protocol.md', 'New Clinical Protocol', 'clinical',
+'Document content here...', CURRENT_TIMESTAMP());
+
+Then refresh the search services to index new content.
 */
