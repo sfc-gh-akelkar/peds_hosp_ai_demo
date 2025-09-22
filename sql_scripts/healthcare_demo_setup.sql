@@ -57,15 +57,6 @@ CREATE OR REPLACE FILE FORMAT CSV_FORMAT
     TIMESTAMP_FORMAT = 'YYYY-MM-DD HH24:MI:SS'
     NULL_IF = ('NULL', 'null', '', 'N/A', 'n/a');
 
-USE ROLE ACCOUNTADMIN;
--- Create API Integration for GitHub (public repository access)
-CREATE OR REPLACE API INTEGRATION HEALTHCARE_GIT_API_INTEGRATION
-    API_PROVIDER = git_https_api
-    API_ALLOWED_PREFIXES = ('https://github.com/your-repo/')
-    ENABLED = TRUE;
-
-GRANT USAGE ON INTEGRATION HEALTHCARE_GIT_API_INTEGRATION TO ROLE SF_INTELLIGENCE_DEMO;
-
 USE ROLE SF_INTELLIGENCE_DEMO;
 
 -- Create internal stage for healthcare data files
