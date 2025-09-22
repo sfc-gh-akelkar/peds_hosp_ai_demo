@@ -38,7 +38,7 @@ CREATE OR REPLACE SEMANTIC VIEW PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.CLINI
     facts (
         ENCOUNTERS.ENCOUNTER_KEY as encounter_key comment='Encounter identifier',
         ENCOUNTERS.LENGTH_OF_STAY as length_of_stay comment='Length of stay in days',
-        ENCOUNTERS.TOTAL_CHARGES as charges comment='Total charges for encounter in dollars',
+        ENCOUNTERS.TOTAL_CHARGES as total_charges comment='Total charges for encounter in dollars',
         CLINICAL_MEASURES.MEASURE_VALUE as measure_value comment='Clinical measurement value',
         MEDICATIONS.DOSAGE as dosage comment='Medication dosage amount'
     )
