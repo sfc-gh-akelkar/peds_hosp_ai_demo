@@ -601,3 +601,5 @@ GROUP BY category
 ORDER BY category;
 
 SELECT '✅ Healthcare documents loaded successfully!' as status;
+
+
