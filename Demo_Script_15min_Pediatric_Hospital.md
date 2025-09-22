@@ -45,7 +45,7 @@
 - "No SQL knowledge required - just business questions"
 
 #### **Live Demo - Query 2:**
-**Type:** *"Show me readmission rates by department for July through September 2024"*
+**Type:** *"Show me readmission rates by department this quarter"*
 
 **Highlight:**
 - "It knows 'readmission rates' means calculating percentages of return visits"
