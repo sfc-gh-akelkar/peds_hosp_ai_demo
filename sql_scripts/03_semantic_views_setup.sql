@@ -38,7 +38,7 @@ CREATE OR REPLACE SEMANTIC VIEW PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.CLINI
     facts (
         ENCOUNTERS.ENCOUNTER_KEY as encounter_key comment='Encounter identifier',
         ENCOUNTERS.LENGTH_OF_STAY as length_of_stay comment='Length of stay in days',
-        ENCOUNTERS.TOTAL_CHARGES as charges comment='Total charges for encounter in dollars',
+        ENCOUNTERS.TOTAL_CHARGES as total_charges comment='Total charges for encounter in dollars',
         CLINICAL_MEASURES.MEASURE_VALUE as measure_value comment='Clinical measurement value',
         MEDICATIONS.DOSAGE as dosage comment='Medication dosage amount'
     )
@@ -67,7 +67,7 @@ CREATE OR REPLACE SEMANTIC VIEW PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.CLINI
     metrics (
         ENCOUNTERS.TOTAL_ENCOUNTERS as COUNT(encounters.encounter_key) comment='Total number of encounters',
         ENCOUNTERS.AVERAGE_LENGTH_OF_STAY as AVG(encounters.length_of_stay) comment='Average length of stay',
-        ENCOUNTERS.SUM_TOTAL_CHARGES as SUM(encounters.charges) comment='Total charges across encounters',
+        ENCOUNTERS.SUM_TOTAL_CHARGES as SUM(encounters.total_charges) comment='Total charges across encounters',
         ENCOUNTERS.READMISSION_RATE as AVG(CASE WHEN encounters.readmission_flag THEN 1.0 ELSE 0.0 END) comment='Readmission rate percentage',
         CLINICAL_MEASURES.ABNORMAL_RESULT_RATE as AVG(CASE WHEN clinical_measures.is_abnormal THEN 1.0 ELSE 0.0 END) comment='Rate of abnormal clinical results'
     )
