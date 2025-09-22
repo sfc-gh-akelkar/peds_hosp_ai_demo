@@ -8,6 +8,8 @@
 
 ## Demo Setup (Pre-Demo - 2 minutes)
 - **Database**: `PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA`
+- **Warehouse**: `PEDIATRIC_HOSPITAL_DEMO_WH`
+- **Role**: `PEDIATRIC_HOSPITAL_DEMO`
 - **Agent**: Pediatric Hospital AI Assistant
 - **Data Scope**: De-identified pediatric patient data, clinical protocols, research studies
 - **Compliance**: HIPAA-compliant with role-based access controls

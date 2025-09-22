@@ -22,8 +22,8 @@ Execute the complete healthcare demo setup with one script:
 ```
 
 ### What the Setup Creates
-- `Pediatric_Hospital_Demo` role with healthcare-specific permissions
-- `Pediatric_Hospital_demo_wh` warehouse with auto-suspend/resume
+- `PEDIATRIC_HOSPITAL_DEMO` role with healthcare-specific permissions
+- `PEDIATRIC_HOSPITAL_DEMO_WH` warehouse with auto-suspend/resume
 - `PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA` database and schema
 - Healthcare data model with pediatric focus
 - 4 semantic views for natural language queries

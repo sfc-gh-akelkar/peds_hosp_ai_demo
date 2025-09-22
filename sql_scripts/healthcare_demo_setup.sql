@@ -5,35 +5,35 @@
 -- ========================================================================
 
 -- Switch to accountadmin role to create warehouse
-USE ROLE accountadmin;
+USE ROLE ACCOUNTADMIN;
 
 -- Enable Snowflake Intelligence by creating the Config DB & Schema
 GRANT USAGE ON DATABASE snowflake_intelligence TO ROLE PUBLIC;
 GRANT USAGE ON SCHEMA snowflake_intelligence.agents TO ROLE PUBLIC;
 
-create or replace role Pediatric_Hospital_Demo;
+CREATE OR REPLACE ROLE PEDIATRIC_HOSPITAL_DEMO;
 
 SET current_user_name = CURRENT_USER();
 
 -- Grant the role to current user
-GRANT ROLE Pediatric_Hospital_Demo TO USER IDENTIFIER($current_user_name);
-GRANT CREATE DATABASE ON ACCOUNT TO ROLE Pediatric_Hospital_Demo;
+GRANT ROLE PEDIATRIC_HOSPITAL_DEMO TO USER IDENTIFIER($current_user_name);
+GRANT CREATE DATABASE ON ACCOUNT TO ROLE PEDIATRIC_HOSPITAL_DEMO;
 
 -- Create a dedicated warehouse for the healthcare demo
-CREATE OR REPLACE WAREHOUSE Pediatric_Hospital_demo_wh 
+CREATE OR REPLACE WAREHOUSE PEDIATRIC_HOSPITAL_DEMO_WH 
     WITH WAREHOUSE_SIZE = 'XSMALL'
     AUTO_SUSPEND = 300
     AUTO_RESUME = TRUE;
 
 -- Grant usage on warehouse
-GRANT USAGE ON WAREHOUSE Pediatric_Hospital_demo_wh TO ROLE Pediatric_Hospital_Demo;
+GRANT USAGE ON WAREHOUSE PEDIATRIC_HOSPITAL_DEMO_WH TO ROLE PEDIATRIC_HOSPITAL_DEMO;
 
 -- Set default role and warehouse
-ALTER USER IDENTIFIER($current_user_name) SET DEFAULT_ROLE = Pediatric_Hospital_Demo;
-ALTER USER IDENTIFIER($current_user_name) SET DEFAULT_WAREHOUSE = Pediatric_Hospital_demo_wh;
+ALTER USER IDENTIFIER($current_user_name) SET DEFAULT_ROLE = PEDIATRIC_HOSPITAL_DEMO;
+ALTER USER IDENTIFIER($current_user_name) SET DEFAULT_WAREHOUSE = PEDIATRIC_HOSPITAL_DEMO_WH;
 
 -- Switch to demo role
-use role Pediatric_Hospital_Demo;
+USE ROLE PEDIATRIC_HOSPITAL_DEMO;
 
 -- Create database and schema
 CREATE OR REPLACE DATABASE PEDIATRIC_HOSPITAL_AI_DEMO;
@@ -57,16 +57,16 @@ CREATE OR REPLACE FILE FORMAT CSV_FORMAT
     TIMESTAMP_FORMAT = 'YYYY-MM-DD HH24:MI:SS'
     NULL_IF = ('NULL', 'null', '', 'N/A', 'n/a');
 
-use role accountadmin;
+USE ROLE ACCOUNTADMIN;
 -- Create API Integration for GitHub (public repository access)
-CREATE OR REPLACE API INTEGRATION healthcare_git_api_integration
+CREATE OR REPLACE API INTEGRATION HEALTHCARE_GIT_API_INTEGRATION
     API_PROVIDER = git_https_api
     API_ALLOWED_PREFIXES = ('https://github.com/your-repo/')
     ENABLED = TRUE;
 
-GRANT USAGE ON INTEGRATION healthcare_git_api_integration TO ROLE Pediatric_Hospital_Demo;
+GRANT USAGE ON INTEGRATION HEALTHCARE_GIT_API_INTEGRATION TO ROLE PEDIATRIC_HOSPITAL_DEMO;
 
-use role Pediatric_Hospital_Demo;
+USE ROLE PEDIATRIC_HOSPITAL_DEMO;
 
 -- Create internal stage for healthcare data files
 CREATE OR REPLACE STAGE INTERNAL_HEALTHCARE_STAGE
@@ -603,10 +603,10 @@ FROM directory(@PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.INTERNAL_HEALTHCARE_S
 WHERE relative_path ilike 'unstructured_docs/%.md';
 
 -- Create search service for clinical documents
-CREATE OR REPLACE CORTEX SEARCH SERVICE Search_clinical_docs
+CREATE OR REPLACE CORTEX SEARCH SERVICE SEARCH_CLINICAL_DOCS
     ON content
     ATTRIBUTES relative_path, file_url, title
-    WAREHOUSE = Pediatric_Hospital_demo_wh
+    WAREHOUSE = PEDIATRIC_HOSPITAL_DEMO_WH
     TARGET_LAG = '30 day'
     EMBEDDING_MODEL = 'snowflake-arctic-embed-l-v2.0'
     AS (
@@ -620,10 +620,10 @@ CREATE OR REPLACE CORTEX SEARCH SERVICE Search_clinical_docs
     );
 
 -- Create search service for operational documents
-CREATE OR REPLACE CORTEX SEARCH SERVICE Search_operations_docs
+CREATE OR REPLACE CORTEX SEARCH SERVICE SEARCH_OPERATIONS_DOCS
     ON content
     ATTRIBUTES relative_path, file_url, title
-    WAREHOUSE = Pediatric_Hospital_demo_wh
+    WAREHOUSE = PEDIATRIC_HOSPITAL_DEMO_WH
     TARGET_LAG = '30 day'
     EMBEDDING_MODEL = 'snowflake-arctic-embed-l-v2.0'
     AS (
@@ -637,10 +637,10 @@ CREATE OR REPLACE CORTEX SEARCH SERVICE Search_operations_docs
     );
 
 -- Create search service for research documents
-CREATE OR REPLACE CORTEX SEARCH SERVICE Search_research_docs
+CREATE OR REPLACE CORTEX SEARCH SERVICE SEARCH_RESEARCH_DOCS
     ON content
     ATTRIBUTES relative_path, file_url, title
-    WAREHOUSE = Pediatric_Hospital_demo_wh
+    WAREHOUSE = PEDIATRIC_HOSPITAL_DEMO_WH
     TARGET_LAG = '30 day'
     EMBEDDING_MODEL = 'snowflake-arctic-embed-l-v2.0'
     AS (
@@ -657,41 +657,41 @@ CREATE OR REPLACE CORTEX SEARCH SERVICE Search_research_docs
 -- EXTERNAL ACCESS AND FUNCTIONS FOR AI AGENT
 -- ========================================================================
 
-use role accountadmin;
+USE ROLE ACCOUNTADMIN;
 
 -- Create network rule for web access
-CREATE OR REPLACE NETWORK RULE Pediatric_Hospital_WebAccessRule
+CREATE OR REPLACE NETWORK RULE PEDIATRIC_HOSPITAL_WEB_ACCESS_RULE
   MODE = EGRESS
   TYPE = HOST_PORT
   VALUE_LIST = ('0.0.0.0:80', '0.0.0.0:443');
 
 GRANT ALL PRIVILEGES ON DATABASE PEDIATRIC_HOSPITAL_AI_DEMO TO ROLE ACCOUNTADMIN;
 GRANT ALL PRIVILEGES ON SCHEMA PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA TO ROLE ACCOUNTADMIN;
-GRANT USAGE ON NETWORK RULE Pediatric_Hospital_WebAccessRule TO ROLE accountadmin;
+GRANT USAGE ON NETWORK RULE PEDIATRIC_HOSPITAL_WEB_ACCESS_RULE TO ROLE ACCOUNTADMIN;
 
 USE SCHEMA PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA;
 
 -- Create external access integration
-CREATE OR REPLACE EXTERNAL ACCESS INTEGRATION Pediatric_Hospital_ExternalAccess_Integration
-ALLOWED_NETWORK_RULES = (Pediatric_Hospital_WebAccessRule)
+CREATE OR REPLACE EXTERNAL ACCESS INTEGRATION PEDIATRIC_HOSPITAL_EXTERNAL_ACCESS_INTEGRATION
+ALLOWED_NETWORK_RULES = (PEDIATRIC_HOSPITAL_WEB_ACCESS_RULE)
 ENABLED = true;
 
 -- Create email notification integration
-CREATE NOTIFICATION INTEGRATION pediatric_hospital_email_int
+CREATE NOTIFICATION INTEGRATION PEDIATRIC_HOSPITAL_EMAIL_INT
   TYPE=EMAIL
   ENABLED=TRUE;
 
 -- Grant permissions to demo role
-GRANT USAGE ON DATABASE snowflake_intelligence TO ROLE Pediatric_Hospital_Demo;
-GRANT USAGE ON SCHEMA snowflake_intelligence.agents TO ROLE Pediatric_Hospital_Demo;
-GRANT CREATE AGENT ON SCHEMA snowflake_intelligence.agents TO ROLE Pediatric_Hospital_Demo;
-GRANT USAGE ON INTEGRATION Pediatric_Hospital_ExternalAccess_Integration TO ROLE Pediatric_Hospital_Demo;
-GRANT USAGE ON INTEGRATION pediatric_hospital_email_int TO ROLE Pediatric_Hospital_Demo;
+GRANT USAGE ON DATABASE snowflake_intelligence TO ROLE PEDIATRIC_HOSPITAL_DEMO;
+GRANT USAGE ON SCHEMA snowflake_intelligence.agents TO ROLE PEDIATRIC_HOSPITAL_DEMO;
+GRANT CREATE AGENT ON SCHEMA snowflake_intelligence.agents TO ROLE PEDIATRIC_HOSPITAL_DEMO;
+GRANT USAGE ON INTEGRATION PEDIATRIC_HOSPITAL_EXTERNAL_ACCESS_INTEGRATION TO ROLE PEDIATRIC_HOSPITAL_DEMO;
+GRANT USAGE ON INTEGRATION PEDIATRIC_HOSPITAL_EMAIL_INT TO ROLE PEDIATRIC_HOSPITAL_DEMO;
 
-use role Pediatric_Hospital_Demo;
+USE ROLE PEDIATRIC_HOSPITAL_DEMO;
 
 -- Create stored procedure for file URLs
-CREATE OR REPLACE PROCEDURE Get_Healthcare_File_URL_SP(
+CREATE OR REPLACE PROCEDURE GET_HEALTHCARE_FILE_URL_SP(
     RELATIVE_FILE_PATH STRING, 
     EXPIRATION_MINS INTEGER DEFAULT 60
 )
@@ -716,7 +716,7 @@ END;
 $$;
 
 -- Create email function for healthcare alerts
-CREATE OR REPLACE PROCEDURE send_healthcare_alert(recipient TEXT, subject TEXT, text TEXT)
+CREATE OR REPLACE PROCEDURE SEND_HEALTHCARE_ALERT(recipient TEXT, subject TEXT, text TEXT)
 RETURNS TEXT
 LANGUAGE PYTHON
 RUNTIME_VERSION = '3.11'
@@ -727,7 +727,7 @@ $$
 def send_healthcare_alert(session, recipient, subject, text):
     session.call(
         'SYSTEM$SEND_EMAIL',
-        'pediatric_hospital_email_int',
+        'PEDIATRIC_HOSPITAL_EMAIL_INT',
         recipient,
         subject,
         text,
@@ -737,12 +737,12 @@ def send_healthcare_alert(session, recipient, subject, text):
 $$;
 
 -- Create web scraping function for external health data
-CREATE OR REPLACE FUNCTION Web_scrape_health_data(weburl STRING)
+CREATE OR REPLACE FUNCTION WEB_SCRAPE_HEALTH_DATA(weburl STRING)
 RETURNS STRING
 LANGUAGE PYTHON
 RUNTIME_VERSION = 3.11
 HANDLER = 'get_health_page'
-EXTERNAL_ACCESS_INTEGRATIONS = (Pediatric_Hospital_ExternalAccess_Integration)
+EXTERNAL_ACCESS_INTEGRATIONS = (PEDIATRIC_HOSPITAL_EXTERNAL_ACCESS_INTEGRATION)
 PACKAGES = ('requests', 'beautifulsoup4')
 AS
 $$
@@ -768,7 +768,7 @@ $$;
 -- SNOWFLAKE INTELLIGENCE AGENT FOR HEALTHCARE
 -- ========================================================================
 
-CREATE OR REPLACE AGENT SNOWFLAKE_INTELLIGENCE.AGENTS.Pediatric_Hospital_Agent
+CREATE OR REPLACE AGENT SNOWFLAKE_INTELLIGENCE.AGENTS.PEDIATRIC_HOSPITAL_AGENT
 WITH PROFILE='{ "display_name": "Pediatric Hospital AI Assistant" }'
     COMMENT=$$ Healthcare AI agent for clinical analytics, operational insights, research support, and HIPAA-compliant data analysis for pediatric hospitals. $$
 FROM SPECIFICATION $$
@@ -922,7 +922,7 @@ FROM SPECIFICATION $$
       "execution_environment": {
         "query_timeout": 0,
         "type": "warehouse",
-        "warehouse": "LURIE_HOSPITAL_DEMO_WH"
+        "warehouse": "PEDIATRIC_HOSPITAL_DEMO_WH"
       },
       "identifier": "PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.GET_HEALTHCARE_FILE_URL_SP",
       "name": "GET_HEALTHCARE_FILE_URL_SP(VARCHAR, DEFAULT NUMBER)",
@@ -962,7 +962,7 @@ FROM SPECIFICATION $$
       "execution_environment": {
         "query_timeout": 0,
         "type": "warehouse",
-        "warehouse": "LURIE_HOSPITAL_DEMO_WH"
+        "warehouse": "PEDIATRIC_HOSPITAL_DEMO_WH"
       },
       "identifier": "PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.SEND_HEALTHCARE_ALERT",
       "name": "SEND_HEALTHCARE_ALERT(VARCHAR, VARCHAR, VARCHAR)",
@@ -972,7 +972,7 @@ FROM SPECIFICATION $$
       "execution_environment": {
         "query_timeout": 0,
         "type": "warehouse",
-        "warehouse": "LURIE_HOSPITAL_DEMO_WH"
+        "warehouse": "PEDIATRIC_HOSPITAL_DEMO_WH"
       },
       "identifier": "PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.WEB_SCRAPE_HEALTH_DATA",
       "name": "WEB_SCRAPE_HEALTH_DATA(VARCHAR)",
