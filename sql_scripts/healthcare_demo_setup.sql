@@ -408,7 +408,7 @@ CREATE OR REPLACE SEMANTIC VIEW PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.CLINI
     metrics (
         ENCOUNTERS.TOTAL_ENCOUNTERS as COUNT(encounters.encounter_record) comment='Total number of encounters',
         ENCOUNTERS.AVERAGE_LENGTH_OF_STAY as AVG(encounters.length_of_stay) comment='Average length of stay',
-        ENCOUNTERS.TOTAL_CHARGES as SUM(encounters.charges) comment='Total charges across encounters',
+        ENCOUNTERS.SUM_TOTAL_CHARGES as SUM(encounters.charges) comment='Total charges across encounters',
         ENCOUNTERS.READMISSION_RATE as AVG(CASE WHEN encounters.readmission_flag THEN 1.0 ELSE 0.0 END) comment='Readmission rate percentage',
         CLINICAL_MEASURES.ABNORMAL_RESULT_RATE as AVG(CASE WHEN clinical_measures.is_abnormal THEN 1.0 ELSE 0.0 END) comment='Rate of abnormal clinical results'
     )
@@ -528,7 +528,7 @@ CREATE OR REPLACE SEMANTIC VIEW PEDIATRIC_HOSPITAL_AI_DEMO.CLINICAL_SCHEMA.FINAN
         ENCOUNTERS.ENCOUNTER_TYPE as encounter_type comment='Type of encounter generating charges'
     )
     metrics (
-        FINANCIAL_TRANSACTIONS.TOTAL_CHARGES as SUM(financial_transactions.charge_amount) comment='Total charges',
+        FINANCIAL_TRANSACTIONS.SUM_CHARGES as SUM(financial_transactions.charge_amount) comment='Total charges from transactions',
         FINANCIAL_TRANSACTIONS.TOTAL_PAYMENTS as SUM(financial_transactions.payment_amount) comment='Total payments received',
         FINANCIAL_TRANSACTIONS.TOTAL_ADJUSTMENTS as SUM(financial_transactions.adjustment_amount) comment='Total adjustments',
         FINANCIAL_TRANSACTIONS.NET_REVENUE as SUM(financial_transactions.payment_amount - financial_transactions.adjustment_amount) comment='Net revenue after adjustments',
