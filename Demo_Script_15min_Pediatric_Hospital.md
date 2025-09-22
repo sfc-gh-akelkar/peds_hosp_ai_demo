@@ -16,167 +16,137 @@
 - **Multiple stakeholders** - clinicians, researchers, administrators all need different views"
 
 ### **What You'll See Today:**
-"I'll demonstrate three core capabilities:
-1. **Cortex Analyst** - Natural language to SQL for instant insights
-2. **Cortex Search** - Intelligent document discovery across clinical content
-3. **Snowflake Intelligence Agent** - AI orchestration across multiple data sources"
+"I'll demonstrate how **Snowflake Intelligence** provides a unified AI interface that seamlessly orchestrates:
+1. **Natural language analytics** - Ask business questions, get instant insights
+2. **Intelligent document discovery** - Find relevant protocols and research instantly  
+3. **Multi-modal AI reasoning** - Combine structured data with unstructured content
+4. **External data integration** - Pull in real-time information from authoritative sources
+
+*Everything through one intelligent conversation interface.*"
 
 ---
 
-## **⏱️ Minutes 2-6: Cortex Analyst - Natural Language Analytics**
+## **⏱️ Minutes 2-8: Snowflake Intelligence - Unified AI Interface**
 
 ### **Business Scenario:**
-"Let's put you in the shoes of Dr. Sarah Chen, Director of Clinical Research. It's Monday morning, the board wants to know about patient outcomes, and she needs answers now - not next week."
+"Let's put you in the shoes of Dr. Sarah Chen, Director of Clinical Research. It's Monday morning, and she needs comprehensive insights that span patient data, clinical protocols, and current research guidelines - all for a board presentation in an hour."
 
 ### **The Traditional Problem:**
-"Normally, Dr. Chen would submit a request to IT, wait 3-5 days for a custom report, then schedule another meeting to discuss findings. By then, the moment has passed."
+"Normally, this would require:
+- Submitting IT requests for patient data analysis (3-5 days wait)
+- Manually searching document repositories for protocols (hours of work)
+- Researching external medical databases for current guidelines (more hours)
+- Correlating all this information manually (days of analysis)"
 
 ### **Snowflake Intelligence Solution:**
-*[Navigate to Snowsight → CLINICAL_ANALYTICS_VIEW → Query with Analyst]*
+*[Navigate to Snowflake Intelligence Agent Interface]*
 
-"Watch what happens when Dr. Chen asks her questions directly..."
+"Watch what happens when Dr. Chen asks ALL her questions through one intelligent conversation..."
 
-#### **Live Demo - Query 1:**
-**Type:** *"What is the average length of stay for pediatric ICU patients?"*
-
-**Highlight:**
-- "Notice how it instantly generates perfect SQL"
-- "It understands 'pediatric ICU' means our PICU department"
-- "No SQL knowledge required - just business questions"
-
-#### **Live Demo - Query 2:**
-**Type:** *"Show me readmission rates by department this quarter"*
+#### **Live Demo - Query 1: Patient Analytics**
+**Type:** *"What is the average length of stay for pediatric ICU patients and show me readmission rates by department this quarter"*
 
 **Highlight:**
-- "It knows 'readmission rates' means calculating percentages of return visits"
-- "Automatically filters to the specified time period"
-- "Joins multiple tables behind the scenes"
+- "Single question combines multiple analytical queries"
+- "Notice how it automatically chooses Cortex Analyst for structured data"
+- "Generates perfect SQL and understands our business terminology"
+- "PICU, readmission rates, quarterly analysis - all understood contextually"
 
-#### **Live Demo - Query 3:**
-**Type:** *"Which diagnoses have the highest total treatment costs?"*
+#### **Live Demo - Query 2: Document Intelligence**
+**Type:** *"Find our pediatric asthma care protocols and HIPAA compliance requirements for research studies"*
 
 **Highlight:**
-- "Complex financial analysis made simple"
-- "Correlates clinical data with cost data automatically"
-- "This would normally require a data analyst and hours of work"
+- "Same interface, now pulling from unstructured documents"
+- "Behind the scenes, it's using Cortex Search to find relevant protocols"
+- "Semantic understanding - not just keyword matching"
+- "Found our asthma care protocol AND compliance policies in seconds"
+
+#### **Live Demo - Query 3: Multi-Modal Analysis**
+**Type:** *"Analyze our asthma patient outcomes and find current CDC guidelines for pediatric asthma care to compare with our protocols"*
+
+**Highlight:**
+- "Now combining structured data analysis with external research"
+- "Single query orchestrates multiple AI capabilities:"
+- "  • Cortex Analyst for patient outcome analysis"
+- "  • Cortex Search for internal protocol review"  
+- "  • Web integration for CDC guideline retrieval"
+- "This is true enterprise AI orchestration"
 
 ### **The Business Impact:**
-"Dr. Chen now has her answers in 30 seconds, not 3 days. She can make informed decisions in real-time, respond to board questions immediately, and spend more time on patient care instead of waiting for reports."
+"Dr. Chen's comprehensive board presentation - which would normally take a week to prepare - is now ready in minutes. All data sources, protocols, and external guidelines analyzed and correlated through intelligent conversation."
 
 ---
 
-## **⏱️ Minutes 6-10: Cortex Search - Document Intelligence**
+## **⏱️ Minutes 8-12: Advanced Snowflake Intelligence Capabilities**
 
 ### **Business Scenario:**
-"Now Dr. Chen needs to find clinical protocols for a new research study. She's looking for asthma treatment guidelines and HIPAA compliance requirements for pediatric research."
+"Now let's explore how Snowflake Intelligence handles increasingly complex scenarios that span multiple domains and require deep contextual understanding."
 
-### **The Traditional Problem:**
-"Clinical teams waste hours searching through document repositories, policy manuals, and research databases. Finding the right protocol can take days of manual searching."
-
-### **Snowflake Intelligence Solution:**
-*[Navigate to Snowsight worksheet]*
-
-"Instead of keyword searching, watch semantic AI in action..."
-
-#### **Live Demo - Clinical Protocol Search:**
-```sql
-SELECT document_id, title, category 
-FROM TABLE(SEARCH_CLINICAL_DOCS(
-    'pediatric asthma emergency treatment protocols', 
-    {'limit': 3}
-));
-```
+#### **Advanced Demo - Multi-Domain Analysis:**
+**Type:** *"What are our quality metrics for pediatric care, compare them with our internal improvement policies, and tell me if there are gaps we should address based on current industry standards"*
 
 **Highlight:**
-- "Semantic search understands intent, not just keywords"
-- "It found our pediatric asthma care protocol instantly"
-- "Notice it understands 'emergency treatment' context"
+- "Watch how it orchestrates multiple AI capabilities seamlessly:"
+- "  • **Cortex Analyst** queries our quality metrics database"
+- "  • **Cortex Search** finds our internal improvement policies"  
+- "  • **External integration** pulls current industry benchmarks"
+- "  • **AI reasoning** correlates all sources to identify gaps"
+- "All through natural conversation - no switching between tools"
 
-#### **Live Demo - Compliance Search:**
-```sql
-SELECT document_id, title, category
-FROM TABLE(SEARCH_OPERATIONS_DOCS(
-    'HIPAA compliance requirements for pediatric research',
-    {'limit': 3}  
-));
-```
+#### **Advanced Demo - Regulatory Intelligence:**
+**Type:** *"Show me our medication error rates for high-risk medications and find our safety protocols for preventing these errors"*
 
 **Highlight:**
-- "Found our HIPAA compliance policy specific to research"
-- "Cross-references pediatric-specific requirements"
-- "This usually takes researchers hours to locate"
+- "Complex safety analysis that requires both data and protocols"
+- "Understands 'high-risk medications' in pediatric context"
+- "Automatically links quantitative analysis with qualitative procedures"
+- "Critical for patient safety and regulatory compliance"
 
-#### **Live Demo - Research Literature:**
-```sql
-SELECT document_id, title, category
-FROM TABLE(SEARCH_RESEARCH_DOCS(
-    'population health chronic disease management outcomes',
-    {'limit': 3}
-));
-```
+#### **Advanced Demo - Research Integration:**
+**Type:** *"Analyze our population health outcomes for chronic conditions and compare with current research on evidence-based interventions"*
 
 **Highlight:**
-- "Discovers relevant research studies from our repository"
-- "Understands the connection between population health and chronic disease"
-- "Enables evidence-based research decisions"
+- "Combines internal performance data with external research"
+- "Understands medical terminology and disease relationships"
+- "Provides evidence-based recommendations for improvement"
+- "This level of analysis normally requires clinical research teams"
 
-### **The Business Impact:**
-"What used to take hours of manual document searching now happens in seconds. Clinical teams can access the right protocols instantly, ensuring better patient care and regulatory compliance."
+## **⏱️ Minutes 12-14: The Enterprise AI Difference**
 
----
+### **Why This Isn't Just 'AI with Healthcare Data':**
+"What you've seen demonstrates true **Enterprise AI**:
 
-## **⏱️ Minutes 10-14: Snowflake Intelligence Agent - AI Orchestration**
+#### **🧠 Contextual Intelligence:**
+- Understands YOUR patients, YOUR protocols, YOUR compliance requirements
+- Not generic responses - insights specific to your organization
+- Learns from your data patterns and business logic
 
-### **Business Scenario:**
-"Now for the really powerful part. Dr. Chen needs to prepare a comprehensive research proposal that combines patient data analysis, clinical protocols, and external medical literature."
+#### **🔒 Governed and Secure:**
+- Every query respects HIPAA compliance automatically
+- Audit trails for all AI interactions
+- Role-based access controls integrated with AI responses
 
-### **The Traditional Problem:**
-"This requires multiple systems - EMR for patient data, document repositories for protocols, PubMed for research, regulatory databases for compliance. Correlating all this information manually takes weeks."
+#### **🔄 Unified Experience:**
+- One interface for structured data, documents, and external sources
+- No switching between systems or learning multiple AI tools
+- Conversational experience that maintains context across queries
 
-### **Snowflake Intelligence Solution:**
-*[Navigate to Snowflake Intelligence Agent]*
-
-"One AI agent that orchestrates everything..."
-
-#### **Agent Demo - Multi-Modal Research Query:**
-*[Show agent interface and configuration]*
-
-**Type:** *"Analyze asthma patient outcomes in our population health program and find relevant treatment protocols and current research guidelines"*
-
-**Highlight:**
-- "Single query combines structured data analysis with document search"
-- "AI agent automatically uses the right tools for each part of the question"
-- "Provides comprehensive, contextualized responses"
-
-#### **Agent Demo - Regulatory Intelligence:**
-**Type:** *"What are our quality metrics for pediatric care and do we have policies that address improvement opportunities?"*
-
-**Highlight:**
-- "Correlates operational data with policy documents"
-- "Identifies gaps between performance and policy"
-- "Provides actionable insights for improvement"
-
-#### **Agent Demo - External Integration:**
-**Type:** *"Find current CDC guidelines for pediatric asthma care and compare with our protocols"*
-
-**Highlight:**
-- "Integrates external data sources with internal protocols"
-- "Keeps clinical teams current with latest guidelines"
-- "Ensures evidence-based care delivery"
-
-### **The Business Impact:**
-"Research that used to take weeks of coordination across multiple systems now happens in one intelligent conversation. Dr. Chen can focus on medical research instead of data gathering."
+#### **⚡ Enterprise Performance:**
+- Scales to your entire organization simultaneously
+- No performance degradation with complex queries
+- Real-time responses even with massive healthcare datasets"
 
 ---
 
 ## **⏱️ Minutes 14-15: Business Value & Call to Action**
 
-### **What Makes This Enterprise AI:**
-"This isn't ChatGPT with healthcare data. This is AI that:
-- **Knows YOUR patients** - every encounter, every outcome, every relationship
-- **Understands YOUR business** - your protocols, your compliance requirements, your workflows  
-- **Protects YOUR data** - HIPAA compliant, governed access, audit trails
-- **Scales YOUR operations** - from clinical decisions to research insights to regulatory reporting"
+### **The Snowflake Intelligence Advantage:**
+"What you've experienced is **Enterprise AI done right**:
+- **Unified Intelligence** - One conversation interface for all your data
+- **Contextual Understanding** - AI that knows YOUR business, not generic healthcare
+- **Seamless Orchestration** - Multiple AI capabilities working together transparently  
+- **Enterprise Security** - HIPAA compliance and governance built-in
+- **No Data Movement** - AI comes to your data, not the other way around"
 
 ### **Measurable Business Impact:**
 - **⚡ 90% faster** clinical insights (days → minutes)
