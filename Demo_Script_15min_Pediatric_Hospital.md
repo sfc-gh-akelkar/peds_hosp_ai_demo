@@ -43,73 +43,119 @@
 
 "Watch what happens when Dr. Chen asks ALL her questions through one intelligent conversation..."
 
-#### **Live Demo - Query 1: Patient Analytics**
-**Type:** *"What is the average length of stay for pediatric ICU patients and show me readmission rates by department this quarter"*
+#### **Live Demo - Query 1: Simple Start**
+**Type:** *"How many patients did we see this quarter?"*
 
 **Highlight:**
-- "Single question combines multiple analytical queries"
-- "Notice how it automatically chooses Cortex Analyst for structured data"
-- "Generates perfect SQL and understands our business terminology"
-- "PICU, readmission rates, quarterly analysis - all understood contextually"
+- "Perfect starting point - simple, clear business question"
+- "Notice the instant SQL generation and clean results"
+- "No technical knowledge required - just natural conversation"
+- "Sets the foundation for our story"
 
-#### **Live Demo - Query 2: Document Intelligence**
-**Type:** *"Find our pediatric asthma care protocols and HIPAA compliance requirements for research studies"*
-
-**Highlight:**
-- "Same interface, now pulling from unstructured documents"
-- "Behind the scenes, it's using Cortex Search to find relevant protocols"
-- "Semantic understanding - not just keyword matching"
-- "Found our asthma care protocol AND compliance policies in seconds"
-
-#### **Live Demo - Query 3: Multi-Modal Analysis**
-**Type:** *"Analyze our asthma patient outcomes and find current CDC guidelines for pediatric asthma care to compare with our protocols"*
+#### **Live Demo - Query 2: Building the Story**
+**Type:** *"Show me patient encounters by week this quarter - are we seeing growth?"*
 
 **Highlight:**
-- "Now combining structured data analysis with external research capability"
-- "Single query orchestrates multiple AI capabilities:"
-- "  • Cortex Analyst for patient outcome analysis"
-- "  • Cortex Search for internal protocol review"  
-- "  • External data integration* for guideline retrieval (*simulated for demo)"
-- "This demonstrates enterprise AI orchestration across data sources"
+- "Now we're asking for trends - watch the automatic chart generation"
+- "Same natural language, but now we get visual insights"
+- "The line chart immediately shows our patient volume pattern"
+- "This is where the story starts to emerge"
 
-### **The Business Impact:**
-"Dr. Chen's comprehensive board presentation - which would normally take a week to prepare - is now ready in minutes. All data sources, protocols, and external guidelines analyzed and correlated through intelligent conversation."
+#### **Live Demo - Query 3: Deeper Clinical Insights**
+**Type:** *"What is the average length of stay for pediatric ICU patients?"*
+
+**Highlight:**
+- "Getting more specific - healthcare domain expertise in action"
+- "It understands 'pediatric ICU' means our PICU department"
+- "Complex joins happening behind the scenes automatically"
+- "Building toward operational insights"
+
+#### **Live Demo - Query 4: Quality Trends**
+**Type:** *"Show me readmission rates by department over time - which departments are improving?"*
+
+**Highlight:**
+- "Multi-dimensional analysis: departments + time + quality metrics"
+- "Watch how it creates a trend chart comparing departments"
+- "Quality improvement story emerging visually"
+- "This is data that drives executive decisions"
+
+#### **Live Demo - Query 5: Financial Intelligence**
+**Type:** *"How has our revenue trended this quarter and which departments generate the most charges?"*
+
+**Highlight:**
+- "Now combining temporal trends with financial analysis"
+- "Multiple visualizations: trend line + department comparison"
+- "Complex revenue cycle calculations made simple"
+- "Shows operational AND financial performance together"
+
+#### **Live Demo - Query 6: Document Intelligence Integration**
+**Type:** *"Find our readmission reduction protocols and show me our actual readmission performance"*
+
+**Highlight:**
+- "Now we're combining structured data insights with document search"
+- "Same conversation connects policies with performance"
+- "Behind the scenes: Cortex Search + Cortex Analyst working together"
+- "This is where policy meets practice"
+
+#### **Live Demo - Query 7: Advanced Multi-Modal Analysis**
+**Type:** *"Analyze our quality metrics compared to our improvement policies and tell me where we have gaps"*
+
+**Highlight:**
+- "The crescendo - full AI orchestration in action"
+- "Multiple data sources: operational data + policy documents + external benchmarks"
+- "Single conversation yields comprehensive gap analysis"
+- "This level of insight normally takes weeks of analysis"
+
+### **The Story Arc Complete:**
+"In just 7 questions, Dr. Chen has built a complete narrative:
+1. **📊 Volume:** Patient encounter trends showing growth
+2. **🏥 Operations:** PICU performance and length of stay analysis  
+3. **📈 Quality:** Readmission improvement tracking by department
+4. **💰 Financial:** Revenue performance and departmental contributions
+5. **📋 Policy:** Connecting protocols with actual performance
+6. **🔍 Gap Analysis:** Identifying improvement opportunities
+
+What would normally take a week of coordination across multiple teams and systems - now complete in one intelligent conversation."
 
 ---
 
-## **⏱️ Minutes 8-12: Advanced Snowflake Intelligence Capabilities**
+## **⏱️ Minutes 8-12: The Bigger Picture - Enterprise Impact**
 
-### **Business Scenario:**
-"Now let's explore how Snowflake Intelligence handles increasingly complex scenarios that span multiple domains and require deep contextual understanding."
+### **From Questions to Business Transformation:**
+"What you just witnessed isn't just impressive AI - it's a fundamental shift in how healthcare organizations can operate. Let me show you the broader implications."
 
-#### **Advanced Demo - Multi-Domain Analysis:**
-**Type:** *"What are our quality metrics for pediatric care, compare them with our internal improvement policies, and tell me if there are gaps we should address based on current industry standards"*
+#### **Storytelling Power - The Executive Dashboard:**
+**Narrative:** *"In our story, Dr. Chen now has everything she needs for her board presentation. But watch what happens when we connect the dots..."*
 
-**Highlight:**
-- "Watch how it orchestrates multiple AI capabilities seamlessly:"
-- "  • **Cortex Analyst** queries our quality metrics database"
-- "  • **Cortex Search** finds our internal improvement policies"  
-- "  • **External integration capability** for industry benchmarks (simulated)"
-- "  • **AI reasoning** correlates all sources to identify gaps"
-- "All through natural conversation - no switching between tools"
-
-#### **Advanced Demo - Regulatory Intelligence:**
-**Type:** *"Show me our medication error rates for high-risk medications and find our safety protocols for preventing these errors"*
+**Type:** *"Create a summary of our quarterly performance highlighting patient volume trends, quality improvements, and financial performance"*
 
 **Highlight:**
-- "Complex safety analysis that requires both data and protocols"
-- "Understands 'high-risk medications' in pediatric context"
-- "Automatically links quantitative analysis with qualitative procedures"
-- "Critical for patient safety and regulatory compliance"
+- "Single query generates a comprehensive executive summary"
+- "Combines all our previous insights into a cohesive narrative"
+- "This is where individual data points become strategic intelligence"
+- "Watch how it automatically creates visualizations for the board deck"
 
-#### **Advanced Demo - Research Integration:**
-**Type:** *"Analyze our population health outcomes for chronic conditions and compare with current research on evidence-based interventions"*
+#### **Predictive Intelligence - Looking Forward:**
+**Narrative:** *"Now Dr. Chen wants to be proactive about the next quarter..."*
+
+**Type:** *"Based on our current trends, what should we expect for patient volume and revenue next month?"*
 
 **Highlight:**
-- "Combines internal performance data with external research capability"
-- "Understands medical terminology and disease relationships"
-- "Shows how external data integration would provide evidence-based recommendations"
-- "Demonstrates the framework for clinical research team automation"
+- "From descriptive to predictive analytics in natural language"
+- "AI reasoning based on historical patterns and seasonal factors"
+- "This is where data becomes strategic planning"
+- "Notice how it explains its reasoning - not just black box predictions"
+
+#### **Cross-Functional Intelligence - Breaking Down Silos:**
+**Narrative:** *"The CEO asks Dr. Chen: 'How do our clinical outcomes relate to our financial performance?'"*
+
+**Type:** *"Show me the relationship between our length of stay, readmission rates, and departmental profitability"*
+
+**Highlight:**
+- "Complex correlation analysis across clinical and financial domains"
+- "Automatically generates scatter plots and correlation coefficients"
+- "This is where departmental silos break down through data"
+- "Insights that drive enterprise-wide decision making"
 
 ## **⏱️ Minutes 12-14: The Enterprise AI Difference**
 
