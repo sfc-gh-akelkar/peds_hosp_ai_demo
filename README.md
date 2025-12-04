@@ -3,6 +3,8 @@
 
 This project demonstrates comprehensive Snowflake Intelligence capabilities for pediatric healthcare organizations. The demo showcases clinical analytics, operational excellence, research insights, and HIPAA-compliant data governance.
 
+> **🏆 Built following [Snowflake's official best practices for building Cortex Agents](https://github.com/Snowflake-Labs/sfquickstarts/blob/master/site/sfguides/src/best-practices-to-building-cortex-agents/best-practices-to-building-cortex-agents.md)** — Production-grade agent architecture with structured orchestration, clear tool selection logic, and enterprise AI standards. See [AGENT_BEST_PRACTICES_IMPLEMENTATION.md](AGENT_BEST_PRACTICES_IMPLEMENTATION.md) for details.
+
 ## Healthcare Intelligence Capabilities
 
 - **🏥 Clinical Analytics** - Patient care outcomes, treatment effectiveness, readmission analysis
@@ -17,7 +19,7 @@ This project demonstrates comprehensive Snowflake Intelligence capabilities for 
 The demo uses a modular approach with 4 focused scripts:
 
 **Option A: Complete Automated Setup**
-```sql
+   ```sql
 -- Run the master setup script in Snowflake worksheet
 /sql_scripts/00_complete_healthcare_setup.sql
 ```
@@ -214,11 +216,52 @@ The **Pediatric Hospital AI Assistant** provides:
 - **Cost reduction** through evidence-based resource allocation
 - **Value-based care** optimization for quality-tied reimbursements
 
-## Support & Documentation
+## Production-Grade Agent Architecture
 
-- **Demo Script**: `Demo_Script_15min_Pediatric_Hospital.md` - Complete 15-minute presentation guide
-- **Transformation Guide**: `Healthcare_Demo_Transformation_Summary.md` - Detailed implementation documentation
-- **SQL Schema**: `sql_scripts/healthcare_demo_setup.sql` - Complete database and AI agent setup
+This demo implements **Snowflake's official best practices for building Cortex Agents**, following the architecture principles from the [Snowflake Labs Quickstart Guide](https://github.com/Snowflake-Labs/sfquickstarts/blob/master/site/sfguides/src/best-practices-to-building-cortex-agents/best-practices-to-building-cortex-agents.md).
+
+### **4-Layer Agent Architecture**
+
+1. **Semantic Views** (`03_semantic_views_setup.sql`)
+   - Business terminology and synonym mappings
+   - Healthcare-specific metrics and dimensions
+   - "Cheat sheets" between raw data and natural language
+
+2. **Orchestration Instructions** (`04_agent_setup.sql`)
+   - Clear personas (CMOs, Quality Officers, Department Heads)
+   - Business context (pediatric benchmarks, KPIs, terminology)
+   - Explicit tool selection logic ("when to use" / "when NOT to use")
+   - Multi-step workflows for complex questions
+
+3. **Response Instructions** (`04_agent_setup.sql`)
+   - Clinical precision and statistical rigor
+   - Chart and visualization preferences
+   - Confidence intervals and benchmark comparisons
+
+4. **Tool Descriptions** (`04_agent_setup.sql`)
+   - Detailed capabilities and data coverage for each tool
+   - Clear boundaries between tools
+   - Example use cases for each semantic view and search service
+
+### **Key Best Practices Implemented**
+
+✅ **Narrow Scope**: Single focused domain (pediatric hospital analytics)  
+✅ **Tool Selection Logic**: Explicit rules for which tool handles which questions  
+✅ **Multi-Step Workflows**: Pre-defined procedures for readmission analysis, quality improvement, financial performance  
+✅ **Clear Boundaries**: Defined what agent does NOT have access to and CANNOT do  
+✅ **Business Rules**: Quality thresholds, seasonal adjustments, data validation standards  
+✅ **Response Formatting**: Healthcare-appropriate tone, statistical standards, visualization guidelines
+
+**📖 See detailed implementation guide:** [AGENT_BEST_PRACTICES_IMPLEMENTATION.md](AGENT_BEST_PRACTICES_IMPLEMENTATION.md)
+
+---
+
+## Documentation
+
+- **Demo Walkthrough**: `Demo_Script_15min_Pediatric_Hospital.md` - 15-minute presentation guide with live queries
+- **Agent Architecture**: `AGENT_BEST_PRACTICES_IMPLEMENTATION.md` - Production-grade design patterns and technical details
+- **Demo Talking Points**: `DEMO_TALKING_POINTS.md` - Sales enablement and key differentiators
+- **Setup Scripts**: `sql_scripts/` - Modular installation for all components
 
 ## Contact & Collaboration
 
